@@ -43,8 +43,8 @@ def do_remix(ws, conditions=None):
 
 
 def do_run(ws, model, base_url=None, api_key=None, max_tokens=4096,
-           conv_ids=None, conditions=None, progress=None, workers=4, extra_body=None):
-    backend = make_backend(model, base_url, api_key, max_tokens, extra_body)
+           conv_ids=None, conditions=None, progress=None, workers=4, extra_body=None, max_tokens_cap=8192):
+    backend = make_backend(model, base_url, api_key, max_tokens, extra_body, max_tokens_cap)
     return runner.run(ws, backend, conv_ids, conditions, progress, workers)
 
 

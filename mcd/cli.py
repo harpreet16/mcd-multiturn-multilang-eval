@@ -64,6 +64,8 @@ def main(argv=None):
     _add_connection_args(s); s.add_argument("--max-tokens", type=int, default=4096,
         help="reasoning models spend tokens thinking, so keep this large (default 4096)")
     s.add_argument("--extra-body", help='extra JSON request fields, e.g. \'{"chat_template_kwargs": {"enable_thinking": false}}\'')
+    s.add_argument("--max-tokens-cap", type=int, default=8192,
+                   help="a cut-off reply is retried with a bigger budget, but never above this (stops looping replies)")
     s.add_argument("--conditions", nargs="+"); s.add_argument("--conv-ids", nargs="+")
     s = sub.add_parser("grade")
     s.add_argument("--judge-model", required=True, help="a model name, or 'manual' to export the questions for a person/Claude to answer")
@@ -89,7 +91,8 @@ def main(argv=None):
     elif args.command == "run":
         p = _with_live_progress(lambda prog: service.do_run(
             ws, args.model, args.base_url, _api_key(args), args.max_tokens, args.conv_ids, args.conditions,
-            progress=prog, workers=args.workers, extra_body=json.loads(args.extra_body) if args.extra_body else None), "run")
+            progress=prog, workers=args.workers, extra_body=json.loads(args.extra_body) if args.extra_body else None,
+            max_tokens_cap=args.max_tokens_cap), "run")
         print(p.snapshot())
         if p.failed:
             print(f"\n!! {p.failed} conversation(s) FAILED and were NOT saved. Re-run the same command: "

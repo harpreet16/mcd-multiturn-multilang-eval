@@ -27,7 +27,7 @@ class Reply:
 
 class OpenAIChat:
     def __init__(self, model, base_url=None, api_key=None,
-                 max_tokens=4096, temperature=0.0, retries=5, extra_body=None, max_tokens_cap=16384, timeout=900):
+                 max_tokens=4096, temperature=0.0, retries=5, extra_body=None, max_tokens_cap=8192, timeout=600):
         self.model = model
         self.base_url = (base_url or os.environ.get("MCD_BASE_URL")
                          or "http://localhost:8000/v1").rstrip("/")
@@ -74,7 +74,7 @@ class OpenAIChat:
                 time.sleep(2 ** attempt)
             except (TimeoutError, urllib.error.URLError, ConnectionError, OSError) as e:
                 # A slow or dropped connection is retried a few times, then reported.
-                if attempt >= min(self.retries, 3) - 1:
+                if attempt >= min(self.retries, 2) - 1:
                     if isinstance(getattr(e, "reason", e), ConnectionRefusedError):
                         raise ServerUnreachable(self.base_url) from e
                     raise
@@ -102,7 +102,7 @@ class MockChat:
         return {"model": "mock"}
 
 
-def make_backend(model, base_url=None, api_key=None, max_tokens=1024, extra_body=None):
+def make_backend(model, base_url=None, api_key=None, max_tokens=4096, extra_body=None, max_tokens_cap=8192):
     if model == "mock":
         return MockChat()
-    return OpenAIChat(model, base_url, api_key, max_tokens, extra_body=extra_body)
+    return OpenAIChat(model, base_url, api_key, max_tokens, extra_body=extra_body, max_tokens_cap=max_tokens_cap)

@@ -356,6 +356,23 @@ class EscalationAndQualityTests(unittest.TestCase):
         self.assertEqual((reply.text, reply.truncated), ("full answer", False))
         self.assertEqual(budgets, [1024, 2048, 4096])
 
+    def test_escalation_never_goes_above_the_cap(self):
+        import threading
+        from http.server import BaseHTTPRequestHandler, HTTPServer
+        from mcd.backends import OpenAIChat
+        budgets = []
+        class H(BaseHTTPRequestHandler):
+            def do_POST(self):
+                budgets.append(json.loads(self.rfile.read(int(self.headers["Content-Length"])))["max_tokens"])
+                out = json.dumps({"choices": [{"message": {"content": "looping..."}, "finish_reason": "length"}]}).encode()
+                self.send_response(200); self.send_header("Content-Length", str(len(out))); self.end_headers(); self.wfile.write(out)
+            def log_message(self, *a): pass
+        srv = HTTPServer(("127.0.0.1", 0), H); threading.Thread(target=srv.serve_forever, daemon=True).start()
+        reply = OpenAIChat("m", f"http://127.0.0.1:{srv.server_address[1]}/v1", max_tokens=1024, max_tokens_cap=4096).chat([{"role": "user", "content": "x"}])
+        srv.shutdown()
+        self.assertEqual(budgets, [1024, 2048, 4096])      # stops at the cap
+        self.assertTrue(reply.truncated)                   # still reported as cut off, so it is dropped, not graded
+
     def test_quality_gate_flags_avoidable_drops_but_not_english_only_drops(self):
         def row(cond, i, passed, skip=None):
             return {"model": "m", "condition": cond, "conv_id": f"c{i}", "rule_id": "r", "turn": 5,
