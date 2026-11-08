@@ -10,6 +10,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from .backends import ServerUnreachable
 from .jobs import Progress
 from .workspace import append_jsonl, latest_responses
 
@@ -53,6 +54,7 @@ def run(workspace, backend, conv_ids=None, conditions=None, progress=None, worke
 
     # Turns finished in conversations that failed part-way are kept, so a retry resumes there.
     lock = threading.Lock()
+    unreachable = []
     partial = json.load(open(workspace.partial)) if os.path.exists(workspace.partial) else {}
 
     def save_partial():
@@ -78,6 +80,10 @@ def run(workspace, backend, conv_ids=None, conditions=None, progress=None, worke
                 partial.pop(key, None)
                 save_partial()
             return variant, result, None
+        except ServerUnreachable as e:    # no point trying the other conversations
+            unreachable.append(str(e))
+            progress.stop()
+            return variant, None, e
         except Exception as e:            # one bad call should not kill a long run
             return variant, None, e
 
@@ -100,12 +106,15 @@ def run(workspace, backend, conv_ids=None, conditions=None, progress=None, worke
                     "settings": backend.settings(), "dataset_hash": dataset_hash,
                     "finished_at": time.strftime("%Y-%m-%d %H:%M:%S")})
             progress.done += 1
-    if progress.failed:
+    if unreachable:
+        progress.message = (f"STOPPED: cannot reach the model server at {unreachable[0]}. Start the model server first "
+                            f"(Colab: run cell 3 and wait for 'server ready'), then run the same command again.")
+    elif progress.failed:
         progress.message = (f"{progress.failed} conversation(s) FAILED and are NOT saved. Re-run the same command: "
                             f"turns already finished are kept and only the rest is redone.")
     cut = sum(1 for r in latest_responses(workspace.responses)
               if r["model"] == model and any(r["truncated"]))
-    if cut and not progress.failed:
+    if cut and not progress.failed and not unreachable:
         progress.message = (f"{cut} saved run(s) have replies cut off by max_tokens: "
                             f"raise --max-tokens (or switch thinking off) and run again to redo them")
     progress.state = "stopped" if progress.should_stop else "finished"

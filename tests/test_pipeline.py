@@ -473,6 +473,17 @@ class ResilienceTests(unittest.TestCase):
         self.assertFalse(json.load(open(ws.partial)))                     # checkpoint cleared after success
 
 
+class ServerDownTests(unittest.TestCase):
+    def test_run_stops_early_with_a_clear_message_when_the_server_is_not_running(self):
+        from mcd.backends import OpenAIChat
+        ws = Workspace(tempfile.mkdtemp()); service.do_ingest(ws, str(DATASET))
+        backend = OpenAIChat("m", "http://127.0.0.1:1/v1", retries=1, timeout=2)      # nothing listens on port 1
+        p = run(ws, backend, conditions=["EN"], workers=2)                              # 40 conversations queued
+        self.assertIn("cannot reach the model server", p.message)
+        self.assertLessEqual(p.failed, 4)                                               # stopped, did not fail all 40
+        self.assertEqual(read_jsonl(ws.responses), [])
+
+
 class ParallelTests(unittest.TestCase):
     def test_parallel_run_and_grade_match_sequential(self):
         outputs = []

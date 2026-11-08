@@ -15,6 +15,10 @@ import urllib.request
 from dataclasses import dataclass
 
 
+class ServerUnreachable(Exception):
+    """Nothing is listening at the model URL (e.g. the vLLM server was never started)."""
+
+
 @dataclass
 class Reply:
     text: str
@@ -71,6 +75,8 @@ class OpenAIChat:
             except (TimeoutError, urllib.error.URLError, ConnectionError, OSError) as e:
                 # A slow or dropped connection is retried a few times, then reported.
                 if attempt >= min(self.retries, 3) - 1:
+                    if isinstance(getattr(e, "reason", e), ConnectionRefusedError):
+                        raise ServerUnreachable(self.base_url) from e
                     raise
                 print(f"  [note] {type(e).__name__}: {e}; retrying ({attempt + 1})", file=sys.stderr, flush=True)
                 time.sleep(2 ** attempt)

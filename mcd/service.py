@@ -14,6 +14,12 @@ DEFAULT_DATASET = "tests/assets/Lost in the Switch — Simple Conversations (1).
 
 
 def do_ingest(ws, xlsx_path=DEFAULT_DATASET):
+    if not os.path.exists(xlsx_path):              # e.g. an unusual dash in the file name was changed by unzip
+        import glob
+        found = sorted(glob.glob("tests/assets/*.xlsx"))
+        if not found:
+            raise FileNotFoundError(f"spreadsheet not found: {xlsx_path} (and no .xlsx in tests/assets/)")
+        xlsx_path = found[0]
     conversations, warnings = ingest.ingest(xlsx_path)
     ws.save_conversations(conversations)
     added = Rulebook(ws.rulebook).add_missing_from_seed()   # seeds, or adds new seed rules
