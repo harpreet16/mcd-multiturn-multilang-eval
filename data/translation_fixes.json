@@ -1,0 +1,11 @@
+[
+  {
+    "conv_id": "LIS-S13",
+    "turn": 3,
+    "lang": "Hindi",
+    "old": "उन दोनों का माध्यिका क्या है?",
+    "new": "उन सभी की माध्यिका क्या है?",
+    "reason": "English: 'What is the median of those?' (8 grades in one list). The Hindi said 'those two' (दोनों), which refers to something that does not exist. 'सभी' = 'all of them'.",
+    "status": "proposed by Claude; needs confirmation by the Hindi speaker"
+  }
+]

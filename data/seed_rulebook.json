@@ -1,0 +1,1692 @@
+{
+ "version": 4,
+ "updated_at": "code-first audit 2026-11",
+ "rules": [
+  {
+   "id": "LIS-S01-R1",
+   "conv_id": "LIS-S01",
+   "name": "Coach Bob's email kept",
+   "description": "Final reply includes Coach Bob's email from turn 4 (implicit memory).",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "coachbob@fakeemailaddress.com"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S01-R2",
+   "conv_id": "LIS-S01",
+   "name": "Coach Simon's email",
+   "description": "Final reply includes coachsimon@fakeemailaddress.com.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "coachsimon@fakeemailaddress.com"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S01-R3",
+   "conv_id": "LIS-S01",
+   "name": "Drop the 35% statistic",
+   "description": "User asked to remove the 35% statistic.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "35\\s?%",
+    "expect": false
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S01-R4",
+   "conv_id": "LIS-S01",
+   "name": "32 inch vertical added",
+   "description": "About-me section includes the 32 inch vertical.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "32\\s*[- ]?\\s*(inch|inches|इंच)",
+    "expect": true
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S01-R5",
+   "conv_id": "LIS-S01",
+   "name": "Gold Cup under achievements",
+   "description": "Includes Minor's Gold Cup.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "Gold Cup"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S01-R6",
+   "conv_id": "LIS-S01",
+   "name": "Online profile format",
+   "description": "Output is an online profile post, not an email. Checked as: has About Me and Achievements sections.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "about me",
+     "achievements"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 12,
+   "to_turn": 13,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S01-R7",
+   "conv_id": "LIS-S01",
+   "name": "Fade-away shot kept",
+   "description": "The consistent fade away shot stays in the strengths.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "fade[- ]?away|फ़?ेड\\s?अवे|फेड\\s?अवे",
+    "expect": true
+   },
+   "from_turn": 2,
+   "to_turn": 13,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S02-R1",
+   "conv_id": "LIS-S02",
+   "name": "Broomstick stitch, not shell",
+   "description": "Does not accept the user's wrong claim that the stitch is a shell stitch.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response avoid agreeing that the stitch is a shell stitch, and instead identify it as broomstick lace (or say it is not a shell stitch)?",
+    "context": "reply"
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S02-R2",
+   "conv_id": "LIS-S02",
+   "name": "Accurate about its last message",
+   "description": "User claims a typo starting with 'cru'. The reply must report what the previous message really began with, not invent or wrongly confirm a typo.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "question": "Does the response accurately describe how the assistant's previous message actually began, without inventing or wrongly confirming a typo?",
+    "context": "full"
+   },
+   "from_turn": 6,
+   "to_turn": 6,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S02-R3",
+   "conv_id": "LIS-S02",
+   "name": "Consistent seed stitch answer",
+   "description": "Answer about wrong-side seed stitch is consistent with its earlier instructions.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is the answer about how to start the wrong side of the seed stitch consistent with what the assistant said earlier in the conversation?",
+    "context": "full"
+   },
+   "from_turn": 9,
+   "to_turn": 9,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S03-R1",
+   "conv_id": "LIS-S03",
+   "name": "Weights above 30 kg",
+   "description": "User only lifts weights above 30 kg; starting weights must respect that.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Do the suggested starting weights respect the user's earlier statement that they only use weights above 30 kg?",
+    "context": "full"
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S03-R2",
+   "conv_id": "LIS-S03",
+   "name": "Table with author, date, copies",
+   "description": "Book table includes author, published date and copies sold. Checked as: a markdown table with a header and rows.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "^\\s*\\|.*\\|\\s*$",
+    "min": 3
+   },
+   "from_turn": 12,
+   "to_turn": 12,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S03-R3",
+   "conv_id": "LIS-S03",
+   "name": "Plan has required parts",
+   "description": "4-month plan covers jump ropes, plyometrics, dynamic stretching.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "(?=[\\s\\S]*(jump rope|रस्सी))(?=[\\s\\S]*(plyometric|प्लायोमेट्रिक))(?=[\\s\\S]*(stretch|स्ट्रेच))",
+    "expect": true
+   },
+   "from_turn": 10,
+   "to_turn": 10,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S04-R1",
+   "conv_id": "LIS-S04",
+   "name": "Avoid banned words",
+   "description": "Never use the words mindful, heal, relaxation.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "\\b(mindful|heal|relaxation)\\b",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S05-R1",
+   "conv_id": "LIS-S05",
+   "name": "Philippine law, not UK/US",
+   "description": "Legal answers refer to the Philippines.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response refer to laws or authorities of the Philippines (not the UK or US)?",
+    "context": "reply"
+   },
+   "from_turn": 10,
+   "to_turn": 13,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S05-R2",
+   "conv_id": "LIS-S05",
+   "name": "PWD parking consequences",
+   "description": "Final reply addresses penalties for parking in a PWD space.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response discuss penalties or consequences for parking in a PWD/handicapped space and the resulting clamping, under Philippine rules?",
+    "context": "reply"
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S06-R1",
+   "conv_id": "LIS-S06",
+   "name": "No skills section",
+   "description": "User asked to remove the skills section.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\W*(core |key |technical )?skills\\W*$",
+    "expect": false
+   },
+   "from_turn": 8,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S06-R2",
+   "conv_id": "LIS-S06",
+   "name": "Researcher experience removed",
+   "description": "User asked to remove the public health researcher experience entry.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "question": "Does the resume avoid including an experience entry about conducting research on health issues in diverse communities?",
+    "context": "full"
+   },
+   "from_turn": 9,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S06-R3",
+   "conv_id": "LIS-S06",
+   "name": "Summary reverted, education first",
+   "description": "Summary is the original draft with education in the first sentence.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is the summary the original first-draft summary, with the user's education included in its first sentence?",
+    "context": "full"
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S07-R1",
+   "conv_id": "LIS-S07",
+   "name": "Three paragraphs",
+   "description": "Letter body is three paragraphs or fewer. Checked as: at most 3 paragraphs of 15+ words (salutation and sign-off ignored).",
+   "polarity": "must",
+   "check": {
+    "type": "paragraph_count",
+    "max": 3,
+    "min_words": 15
+   },
+   "from_turn": 8,
+   "to_turn": 11,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S07-R2",
+   "conv_id": "LIS-S07",
+   "name": "Traditional proverb kept",
+   "description": "Keeps the traditional proverb.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the letter include a traditional proverb about gratitude or shared heritage?",
+    "context": "reply"
+   },
+   "from_turn": 8,
+   "to_turn": 11,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S07-R3",
+   "conv_id": "LIS-S07",
+   "name": "No letterhead or date",
+   "description": "Letterhead and date removed. Checked as: no date line. Letterhead is a separate judged rule.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2}|\\d{1,2}[/.-]\\d{1,2}[/.-]\\d{2,4}",
+    "expect": false
+   },
+   "from_turn": 9,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S07-R4",
+   "conv_id": "LIS-S07",
+   "name": "Closing sentence on staying in touch",
+   "description": "Last paragraph has a sentence about staying in touch / professional relationship.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the last paragraph include a sentence about staying in touch and maintaining a professional relationship?",
+    "context": "reply"
+   },
+   "from_turn": 11,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S08-R1",
+   "conv_id": "LIS-S08",
+   "name": "No code blocks",
+   "description": "User dislikes code blocks; answer in normal text.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "```",
+    "expect": false
+   },
+   "from_turn": 7,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S08-R2",
+   "conv_id": "LIS-S08",
+   "name": "Split heading present",
+   "description": "Has a 'Characterization Details' heading.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "Characterization Details"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S08-R3",
+   "conv_id": "LIS-S08",
+   "name": "Functional modern piece",
+   "description": "Emphasizes functional modern daily use plus collector's item.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the email emphasize the table as a functional, modern piece for daily dining use as well as a collector's item?",
+    "context": "reply"
+   },
+   "from_turn": 11,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S08-R4",
+   "conv_id": "LIS-S08",
+   "name": "Material and Dimensions merged",
+   "description": "Material and Dimensions are one section.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Are Material and Dimensions merged into a single section rather than two separate ones?",
+    "context": "reply"
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S09-R1",
+   "conv_id": "LIS-S09",
+   "name": "Three required terms",
+   "description": "Includes integrated marketing communications, brand management, multichannel marketing.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "integrated marketing communications",
+     "brand management",
+     "multichannel marketing"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 9,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S09-R2",
+   "conv_id": "LIS-S09",
+   "name": "Exactly three paragraphs",
+   "description": "Summary is exactly three paragraphs.",
+   "polarity": "must",
+   "check": {
+    "type": "paragraph_count",
+    "min": 3,
+    "max": 3
+   },
+   "from_turn": 8,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S09-R3",
+   "conv_id": "LIS-S09",
+   "name": "Paragraphs <= 70 words",
+   "description": "Each paragraph is at most 70 words.",
+   "polarity": "must",
+   "check": {
+    "type": "max_words_per_paragraph",
+    "max": 70
+   },
+   "from_turn": 8,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S10-R1",
+   "conv_id": "LIS-S10",
+   "name": "No 'Once upon a time'",
+   "description": "Intro removed.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "once upon a time",
+    "expect": false
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S10-R2",
+   "conv_id": "LIS-S10",
+   "name": "LGBTQ youth non-profit",
+   "description": "Non-profit helps LGBTQ youth.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "LGBTQ"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 4,
+   "to_turn": 12,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S10-R3",
+   "conv_id": "LIS-S10",
+   "name": "New title",
+   "description": "Final story has a title different from the earlier one.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the story have a title that is different from the title used in earlier drafts?",
+    "context": "full"
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S11-R1",
+   "conv_id": "LIS-S11",
+   "name": "Family friendly only",
+   "description": "Never give a song that is not family friendly.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "question": "Are all the songs listed family friendly?",
+    "context": "reply"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S11-R2",
+   "conv_id": "LIS-S11",
+   "name": "No Beatles songs",
+   "description": "Beatles songs replaced and not reintroduced.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "question": "Does the list avoid songs by the Beatles?",
+    "context": "reply"
+   },
+   "from_turn": 3,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S11-R3",
+   "conv_id": "LIS-S11",
+   "name": "List size",
+   "description": "10-15 songs in the first list. Checked as: 10-15 list items.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "^\\s*(\\d+[.)]|[-*•])\\s",
+    "min": 10,
+    "max": 15
+   },
+   "from_turn": 1,
+   "to_turn": 1,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S12-R1",
+   "conv_id": "LIS-S12",
+   "name": "Rhymes",
+   "description": "Poem is about nature and rhymes.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is this a poem about nature that rhymes?",
+    "context": "reply"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S12-R2",
+   "conv_id": "LIS-S12",
+   "name": "5-word alliterative title",
+   "description": "Title has exactly five words and uses alliteration.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the poem have a title of exactly five words that uses alliteration?",
+    "context": "reply"
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S12-R3",
+   "conv_id": "LIS-S12",
+   "name": "Three stanzas",
+   "description": "Final poem has three stanzas. Checked as: exactly 3 blocks of 2+ lines (a one-line title is ignored).",
+   "polarity": "must",
+   "check": {
+    "type": "paragraph_count",
+    "min": 3,
+    "max": 3,
+    "min_lines": 2
+   },
+   "from_turn": 6,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S12-R4",
+   "conv_id": "LIS-S12",
+   "name": "ABCC rhyme scheme",
+   "description": "Final poem follows ABCC.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does each stanza follow an ABCC rhyme scheme?",
+    "context": "reply"
+   },
+   "from_turn": 6,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S13-R1",
+   "conv_id": "LIS-S13",
+   "name": "Numbered lists with titles",
+   "description": "User said ALL answers should be numerical lists with appropriate titles (this includes the median answer). Checked as: the answer contains a numbered list. 'Appropriate title' is a separate judged rule.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "^\\s*\\d+[.)]\\s",
+    "min": 1
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S13-R2",
+   "conv_id": "LIS-S13",
+   "name": "Highest first",
+   "description": "Lists ordered highest grade to lowest.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Within each list, are grades ordered from highest to lowest?",
+    "context": "reply"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S13-R3",
+   "conv_id": "LIS-S13",
+   "name": "Titles are not ranges",
+   "description": "Titles must not be the score ranges.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\W*(#+\\s*)?\\**\\s*(100\\s*[-–]\\s*90|89\\s*[-–]\\s*80|79\\s*[-–]\\s*70|69\\s*[-–]\\s*65)",
+    "expect": false
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S13-R4",
+   "conv_id": "LIS-S13",
+   "name": "Second-quarter grades included",
+   "description": "All 8 second quarter grades appear. Checked as: all subjects and the distinctive 2nd-quarter scores appear.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "ELA",
+     "FACS",
+     "Math",
+     "PE",
+     "Reading",
+     "Science",
+     "Social Studies",
+     "Elementary Band",
+     "81",
+     "94",
+     "50"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 6,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S14-R1",
+   "conv_id": "LIS-S14",
+   "name": "Final function name",
+   "description": "Defines calculate_final.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "def calculate_final"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S14-R2",
+   "conv_id": "LIS-S14",
+   "name": "Decorator caching",
+   "description": "Uses functools lru_cache.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "lru_cache"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S14-R3",
+   "conv_id": "LIS-S14",
+   "name": "Error handling",
+   "description": "ValueError for negatives; floats converted.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "ValueError",
+     "int("
+    ],
+    "mode": "all"
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S14-R4",
+   "conv_id": "LIS-S14",
+   "name": "Method switch",
+   "description": "Has a method parameter defaulting to recursive.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "def\\s+calculate_final\\s*\\([^)]*method\\s*(:\\s*str)?\\s*=\\s*[\\\"']recursive[\\\"']",
+    "expect": true
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S14-R5",
+   "conv_id": "LIS-S14",
+   "name": "Docstring",
+   "description": "Includes a docstring.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "\"\"\"|\\'\\'\\'",
+    "expect": true
+   },
+   "from_turn": 10,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S15-R1",
+   "conv_id": "LIS-S15",
+   "name": "Lowercase only",
+   "description": "All lowercase letters.",
+   "polarity": "must",
+   "check": {
+    "type": "lowercase_only"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S15-R2",
+   "conv_id": "LIS-S15",
+   "name": "Fewer than 20 sentences",
+   "description": "Less than 20 sentences.",
+   "polarity": "must",
+   "check": {
+    "type": "sentence_count",
+    "max": 19
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S15-R3",
+   "conv_id": "LIS-S15",
+   "name": "<<title>>",
+   "description": "Title wrapped in double angular brackets.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "<<[^\\n]+>>",
+    "expect": true
+   },
+   "from_turn": 3,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S15-R4",
+   "conv_id": "LIS-S15",
+   "name": "'recycling' x3",
+   "description": "Word recycling at least 3 times.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "recycling",
+    "min": 3
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S16-R1",
+   "conv_id": "LIS-S16",
+   "name": "No bullets, lists or tables",
+   "description": "Plain paragraphs only.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\s*([-*•]|\\d+[.)])\\s|\\|.*\\|",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S16-R2",
+   "conv_id": "LIS-S16",
+   "name": "At least 30 sentences",
+   "description": "Response is at least 30 sentences.",
+   "polarity": "must",
+   "check": {
+    "type": "sentence_count",
+    "min": 30
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S16-R3",
+   "conv_id": "LIS-S16",
+   "name": "Keywords",
+   "description": "Includes criteria, storage, graphics.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "criteria",
+     "storage",
+     "graphics"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 3,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S16-R4",
+   "conv_id": "LIS-S16",
+   "name": "Exact ending phrase",
+   "description": "Ends with the exact phrase.",
+   "polarity": "must",
+   "check": {
+    "type": "ends_with",
+    "phrase": "this comprehensive approach ensures a balanced evaluation of both performance and cost-effectiveness."
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S17-R1",
+   "conv_id": "LIS-S17",
+   "name": "Risks and benefits per step",
+   "description": "Each strategy step lists risks and benefits.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the strategy list potential risks and benefits for each step?",
+    "context": "reply"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S17-R2",
+   "conv_id": "LIS-S17",
+   "name": "Feasibility and adjustment",
+   "description": "Final reply evaluates feasibility and adjusts the strategy.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response evaluate feasibility and adjust the strategy where needed?",
+    "context": "reply"
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S18-R1",
+   "conv_id": "LIS-S18",
+   "name": "Brief",
+   "description": "Keep responses brief.",
+   "polarity": "must",
+   "check": {
+    "type": "word_count",
+    "max": 250
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S18-R2",
+   "conv_id": "LIS-S18",
+   "name": "Three-part question",
+   "description": "Final reply is a three-part numbered question.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "1\\)[\\s\\S]*2\\)[\\s\\S]*3\\)",
+    "expect": true
+   },
+   "from_turn": 5,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S19-R1",
+   "conv_id": "LIS-S19",
+   "name": "Fewer than 10 ALL-CAPS words",
+   "description": "All-caps words appear less than 10 times.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "\\b[A-Z]{2,}\\b",
+    "max": 9
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S19-R2",
+   "conv_id": "LIS-S19",
+   "name": "Wrapped in double quotes",
+   "description": "Entire response wrapped in double quotes.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\s*\"[\\s\\S]*\"\\s*$",
+    "expect": true
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S19-R3",
+   "conv_id": "LIS-S19",
+   "name": "For Matthias Algiers",
+   "description": "Resume is for Matthias Algiers.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "Matthias Algiers"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S20-R1",
+   "conv_id": "LIS-S20",
+   "name": "No commas",
+   "description": "Do not include any commas.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": ",",
+    "expect": false
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S20-R2",
+   "conv_id": "LIS-S20",
+   "name": "No letter c",
+   "description": "Do not include the letter c.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "c",
+    "expect": false
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "english_only"
+  },
+  {
+   "id": "LIS-S20-R3",
+   "conv_id": "LIS-S20",
+   "name": "At least 250 words",
+   "description": "Response has at least 250 words.",
+   "polarity": "must",
+   "check": {
+    "type": "word_count",
+    "min": 250
+   },
+   "from_turn": 2,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S06-R4",
+   "conv_id": "LIS-S06",
+   "name": "Education in summary",
+   "description": "Summary includes the user's education.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the summary section include the user's education?",
+    "context": "reply"
+   },
+   "from_turn": 11,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S07-R5",
+   "conv_id": "LIS-S07",
+   "name": "Impact paragraph second to last",
+   "description": "The story of the influencer's impact is the second-to-last paragraph.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is the paragraph about the influencer's positive impact on the community the second-to-last paragraph of the letter?",
+    "context": "reply"
+   },
+   "from_turn": 11,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S08-R5",
+   "conv_id": "LIS-S08",
+   "name": "Bold headings, no code blocks",
+   "description": "Section headings are bold, in normal text. Checked as: the Historical Significance heading is in **bold**.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "\\*\\*[^*\\n]*Historical Significance[^*\\n]*\\*\\*",
+    "expect": true
+   },
+   "from_turn": 7,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S10-R4",
+   "conv_id": "LIS-S10",
+   "name": "Paragraph swap done",
+   "description": "Second paragraph replaced by the first draft's fourth paragraph.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Has the second paragraph of the story been replaced by the fourth paragraph of the first draft?",
+    "context": "full"
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S11-R4",
+   "conv_id": "LIS-S11",
+   "name": "15 new songs",
+   "description": "Final reply gives another 15 songs.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response give about 15 songs that are new (not repeats of earlier lists)?",
+    "context": "full"
+   },
+   "from_turn": 5,
+   "to_turn": 5,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S17-R3",
+   "conv_id": "LIS-S17",
+   "name": "AI/ML integration",
+   "description": "Turn 3 analyzes how AI/ML could be integrated into the strategy.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the response analyze how AI or machine learning could be integrated into the proposed strategy?",
+    "context": "reply"
+   },
+   "from_turn": 3,
+   "to_turn": 3,
+   "enabled": true,
+   "source": "reviewed",
+   "language_scope": "any"
+  },
+  {
+   "id": "LIS-S15-R5",
+   "conv_id": "LIS-S15",
+   "name": "Reply is in English",
+   "description": "User said the response must be in English.",
+   "polarity": "must",
+   "check": {
+    "type": "reply_language",
+    "expect": "en"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "reviewed"
+  },
+  {
+   "id": "LIS-X01-R1",
+   "conv_id": "LIS-X01",
+   "name": "Exactly three '- ' bullets",
+   "description": "Rule given in turn 1 (must): Always format every answer as exactly three bullet points, each line starting with '- '. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "^\\s*-\\s",
+    "min": 3,
+    "max": 3
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X02-R1",
+   "conv_id": "LIS-X02",
+   "name": "No bullets or lists",
+   "description": "Rule given in turn 1 (must not): Never use bullet points, numbered lists, or any list formatting; write in plain prose. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\s*([-*•]|\\d+[.)])\\s",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X03-R1",
+   "conv_id": "LIS-X03",
+   "name": "At least two exclamation marks",
+   "description": "Rule given in turn 1 (must): Every reply must contain at least two exclamation marks (!). Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "!",
+    "min": 2
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X04-R1",
+   "conv_id": "LIS-X04",
+   "name": "No exclamation marks",
+   "description": "Rule given in turn 1 (must not): Never use an exclamation mark (!) in any reply. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "!",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X05-R1",
+   "conv_id": "LIS-X05",
+   "name": "Key phrase in **bold**",
+   "description": "Rule given in turn 1 (must): In every reply, put the single most important phrase in **bold** using double asterisks. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "\\*\\*[^*\\n]+\\*\\*",
+    "min": 1
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X06-R1",
+   "conv_id": "LIS-X06",
+   "name": "No bold or markdown",
+   "description": "Rule given in turn 1 (must not): Never use bold text or any markdown formatting (no ** and no # headings). Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "\\*\\*|^\\s*#{1,6}\\s",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X07-R1",
+   "conv_id": "LIS-X07",
+   "name": "Ends with a question",
+   "description": "Rule given in turn 1 (must): End every reply with a question addressed to me. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "[?？]\\s*[\\\"”’)»]*\\s*\\Z",
+    "expect": true
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X08-R1",
+   "conv_id": "LIS-X08",
+   "name": "No questions",
+   "description": "Rule given in turn 1 (must not): Never ask me a question; do not use question marks in any reply. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "[?？]",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X09-R1",
+   "conv_id": "LIS-X09",
+   "name": "Includes ✅",
+   "description": "Rule given in turn 1 (must): Include the ✅ emoji at least once in every reply. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "contains",
+    "terms": [
+     "✅"
+    ],
+    "mode": "all"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X10-R1",
+   "conv_id": "LIS-X10",
+   "name": "No emoji",
+   "description": "Rule given in turn 1 (must not): Never use any emoji in any reply. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "[☀-➿\\U0001F300-\\U0001FAFF]",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X11-R1",
+   "conv_id": "LIS-X11",
+   "name": "Starts with a '# ' heading",
+   "description": "Rule given in turn 1 (must): Start every reply with a heading line that begins with '# '. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "\\A\\s*#\\s\\S",
+    "expect": true
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X12-R1",
+   "conv_id": "LIS-X12",
+   "name": "No headings",
+   "description": "Rule given in turn 1 (must not): Never use headings; do not start any line with '#'. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\s*#",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X13-R1",
+   "conv_id": "LIS-X13",
+   "name": "At least one parenthetical remark",
+   "description": "Rule given in turn 1 (must): Every reply must include at least one remark in parentheses. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "\\([^)\\n]+\\)",
+    "expect": true
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X14-R1",
+   "conv_id": "LIS-X14",
+   "name": "No parentheses",
+   "description": "Rule given in turn 1 (must not): Never use parentheses in any reply. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "[()（）]",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X15-R1",
+   "conv_id": "LIS-X15",
+   "name": "Exactly two paragraphs",
+   "description": "Rule given in turn 1 (must): Every reply must be exactly two paragraphs separated by one blank line. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "paragraph_count",
+    "min": 2,
+    "max": 2
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X16-R1",
+   "conv_id": "LIS-X16",
+   "name": "Single paragraph only",
+   "description": "Rule given in turn 1 (must not): Never split a reply into more than one paragraph; no blank lines. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "paragraph_count",
+    "max": 1
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X17-R1",
+   "conv_id": "LIS-X17",
+   "name": "Exactly two hashtags",
+   "description": "Rule given in turn 1 (must): End every reply with exactly two hashtags. Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "regex_count",
+    "pattern": "#\\S+",
+    "min": 2,
+    "max": 2
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X18-R1",
+   "conv_id": "LIS-X18",
+   "name": "No hashtags",
+   "description": "Rule given in turn 1 (must not): Never use hashtags in any reply. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "regex",
+    "pattern": "#\\S",
+    "expect": false
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X19-R1",
+   "conv_id": "LIS-X19",
+   "name": "Ends with the exact closing sentence",
+   "description": "Rule given in turn 1 (must): End every reply with the exact sentence: \"Let me know if you need anything else.\" Must still hold at turn 5.",
+   "polarity": "must",
+   "check": {
+    "type": "ends_with",
+    "phrase": "Let me know if you need anything else."
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-X20-R1",
+   "conv_id": "LIS-X20",
+   "name": "No offers of further help",
+   "description": "Rule given in turn 1 (must not): Never offer further help or ask whether I need anything else. Must still hold at turn 5.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "context": "reply",
+    "question": "Does the reply avoid offering further help or asking whether the user needs anything else?"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "curated"
+  },
+  {
+   "id": "LIS-S03-R5",
+   "conv_id": "LIS-S03",
+   "name": "Ranked easiest to hardest",
+   "description": "Books are ranked from easiest to read to hardest.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Are the books in the table ranked from easiest to read to hardest, based on word complexity?",
+    "context": "reply"
+   },
+   "from_turn": 12,
+   "to_turn": 12,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "reviewed"
+  },
+  {
+   "id": "LIS-S07-R6",
+   "conv_id": "LIS-S07",
+   "name": "No letterhead",
+   "description": "Letterhead removed.",
+   "polarity": "must_not",
+   "check": {
+    "type": "judge",
+    "question": "Does the letter avoid having a letterhead (sender name/address block at the top)?",
+    "context": "reply"
+   },
+   "from_turn": 9,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "reviewed"
+  },
+  {
+   "id": "LIS-S13-R5",
+   "conv_id": "LIS-S13",
+   "name": "Appropriate titles",
+   "description": "Each list has an appropriate title.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does each list have an appropriate title?",
+    "context": "reply"
+   },
+   "from_turn": 1,
+   "to_turn": null,
+   "language_scope": "any",
+   "enabled": true,
+   "source": "reviewed"
+  }
+ ]
+}

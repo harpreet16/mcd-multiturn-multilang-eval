@@ -1,0 +1,886 @@
+{
+ "status": "Curated by Claude for this study. Hindi text is NOT yet verified by a native speaker.",
+ "design": "10 matched pairs. Within a pair, turns 2-5 are identical and only the rule in turn 1 flips between 'must' and 'must not'. Authored mix = English turn 1 and 5, Hindi turns 2-4 (EN->HI->EN). A full Hindi version enables the Hindi-only and reverse controls.",
+ "conversations": [
+  {
+   "id": "LIS-X01",
+   "pair_id": "P01",
+   "polarity": "must",
+   "topic": "cleanup announcement",
+   "feature": "bullets",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm organizing a neighborhood cleanup day for this Saturday. Please write a short announcement I can post for the neighbors. Always format every answer as exactly three bullet points, each line starting with '- '.",
+     "hi": "मैं इस शनिवार के लिए मोहल्ले में सफ़ाई अभियान का आयोजन कर रहा हूँ। कृपया पड़ोसियों के लिए पोस्ट करने हेतु एक छोटी घोषणा लिखें। हर उत्तर को हमेशा ठीक तीन बुलेट पॉइंट में लिखें, और हर पंक्ति '- ' से शुरू हो।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you add a line saying volunteers should bring their own gloves?",
+     "hi": "क्या आप एक पंक्ति जोड़ सकते हैं कि स्वयंसेवक अपने दस्ताने साथ लाएँ?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Please also mention that snacks and water will be provided.",
+     "hi": "कृपया यह भी बताएँ कि नाश्ता और पानी उपलब्ध कराया जाएगा।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Great. Now write a short thank-you message to post for the volunteers after the event.",
+     "hi": "बढ़िया। अब कार्यक्रम के बाद स्वयंसेवकों के लिए पोस्ट करने हेतु एक छोटा धन्यवाद संदेश लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X02",
+   "pair_id": "P01",
+   "polarity": "must_not",
+   "topic": "cleanup announcement",
+   "feature": "bullets",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm organizing a neighborhood cleanup day for this Saturday. Please write a short announcement I can post for the neighbors. Never use bullet points, numbered lists, or any list formatting; write in plain prose.",
+     "hi": "मैं इस शनिवार के लिए मोहल्ले में सफ़ाई अभियान का आयोजन कर रहा हूँ। कृपया पड़ोसियों के लिए पोस्ट करने हेतु एक छोटी घोषणा लिखें। बुलेट पॉइंट, क्रमांकित सूची या किसी भी तरह की सूची का उपयोग कभी न करें; सादे गद्य में लिखें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you add a line saying volunteers should bring their own gloves?",
+     "hi": "क्या आप एक पंक्ति जोड़ सकते हैं कि स्वयंसेवक अपने दस्ताने साथ लाएँ?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Please also mention that snacks and water will be provided.",
+     "hi": "कृपया यह भी बताएँ कि नाश्ता और पानी उपलब्ध कराया जाएगा।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Great. Now write a short thank-you message to post for the volunteers after the event.",
+     "hi": "बढ़िया। अब कार्यक्रम के बाद स्वयंसेवकों के लिए पोस्ट करने हेतु एक छोटा धन्यवाद संदेश लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X03",
+   "pair_id": "P02",
+   "polarity": "must",
+   "topic": "bake sale",
+   "feature": "exclamation marks",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Our school is holding a bake sale next Friday. Please write a short announcement for the school newsletter. Every reply must contain at least two exclamation marks (!).",
+     "hi": "हमारा स्कूल अगले शुक्रवार को बेक सेल आयोजित कर रहा है। कृपया स्कूल के समाचार-पत्र के लिए एक छोटी घोषणा लिखें। हर उत्तर में कम से कम दो विस्मयादिबोधक चिह्न (!) होने चाहिए।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you mention that the sale starts at 10 a.m. in the main hall?",
+     "hi": "क्या आप बता सकते हैं कि बिक्री सुबह 10 बजे मुख्य हॉल में शुरू होगी?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Please add that all proceeds will go to the school library.",
+     "hi": "कृपया यह भी जोड़ें कि सारी आय स्कूल के पुस्तकालय को दी जाएगी।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short reminder to send to parents the day before.",
+     "hi": "अब एक दिन पहले अभिभावकों को भेजने के लिए एक छोटा अनुस्मारक लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X04",
+   "pair_id": "P02",
+   "polarity": "must_not",
+   "topic": "bake sale",
+   "feature": "exclamation marks",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Our school is holding a bake sale next Friday. Please write a short announcement for the school newsletter. Never use an exclamation mark (!) in any reply.",
+     "hi": "हमारा स्कूल अगले शुक्रवार को बेक सेल आयोजित कर रहा है। कृपया स्कूल के समाचार-पत्र के लिए एक छोटी घोषणा लिखें। किसी भी उत्तर में विस्मयादिबोधक चिह्न (!) का उपयोग कभी न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you mention that the sale starts at 10 a.m. in the main hall?",
+     "hi": "क्या आप बता सकते हैं कि बिक्री सुबह 10 बजे मुख्य हॉल में शुरू होगी?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Please add that all proceeds will go to the school library.",
+     "hi": "कृपया यह भी जोड़ें कि सारी आय स्कूल के पुस्तकालय को दी जाएगी।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short reminder to send to parents the day before.",
+     "hi": "अब एक दिन पहले अभिभावकों को भेजने के लिए एक छोटा अनुस्मारक लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X05",
+   "pair_id": "P03",
+   "polarity": "must",
+   "topic": "exam study tips",
+   "feature": "bold text",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I have exams in two weeks. Can you give me some advice on how to study effectively? In every reply, put the single most important phrase in **bold** using double asterisks.",
+     "hi": "मेरी परीक्षाएँ दो हफ़्ते में हैं। क्या आप मुझे प्रभावी ढंग से पढ़ाई करने के बारे में कुछ सलाह दे सकते हैं? हर उत्तर में सबसे महत्वपूर्ण वाक्यांश को दोहरे तारांकन (**) से बोल्ड में लिखें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I get distracted easily by my phone. What should I do about that?",
+     "hi": "मैं अपने फ़ोन से आसानी से भटक जाता हूँ। इसके बारे में मुझे क्या करना चाहिए?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "How should I plan the last two days before the exam?",
+     "hi": "परीक्षा से पहले के आख़िरी दो दिनों की योजना मुझे कैसे बनानी चाहिए?",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now give me tips for staying calm during the exam itself.",
+     "hi": "अब मुझे परीक्षा के दौरान शांत रहने के सुझाव दीजिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X06",
+   "pair_id": "P03",
+   "polarity": "must_not",
+   "topic": "exam study tips",
+   "feature": "bold text",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I have exams in two weeks. Can you give me some advice on how to study effectively? Never use bold text or any markdown formatting (no ** and no # headings).",
+     "hi": "मेरी परीक्षाएँ दो हफ़्ते में हैं। क्या आप मुझे प्रभावी ढंग से पढ़ाई करने के बारे में कुछ सलाह दे सकते हैं? बोल्ड टेक्स्ट या किसी भी मार्कडाउन फ़ॉर्मेटिंग (न ** और न # शीर्षक) का उपयोग कभी न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I get distracted easily by my phone. What should I do about that?",
+     "hi": "मैं अपने फ़ोन से आसानी से भटक जाता हूँ। इसके बारे में मुझे क्या करना चाहिए?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "How should I plan the last two days before the exam?",
+     "hi": "परीक्षा से पहले के आख़िरी दो दिनों की योजना मुझे कैसे बनानी चाहिए?",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now give me tips for staying calm during the exam itself.",
+     "hi": "अब मुझे परीक्षा के दौरान शांत रहने के सुझाव दीजिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X07",
+   "pair_id": "P04",
+   "polarity": "must",
+   "topic": "Jaipur weekend plan",
+   "feature": "ending question",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm visiting Jaipur for a weekend. Can you suggest a rough plan for Saturday? End every reply with a question addressed to me.",
+     "hi": "मैं एक सप्ताहांत के लिए जयपुर जा रहा हूँ। क्या आप शनिवार के लिए एक मोटी-मोटी योजना सुझा सकते हैं? हर उत्तर का अंत मुझसे पूछे गए एक प्रश्न से करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I'd like to include one famous fort. Which one fits best?",
+     "hi": "मैं एक प्रसिद्ध किला शामिल करना चाहता हूँ। कौन-सा सबसे उपयुक्त रहेगा?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a good place for lunch to the plan.",
+     "hi": "योजना में दोपहर के भोजन के लिए एक अच्छी जगह जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now suggest a plan for Sunday morning.",
+     "hi": "अब रविवार सुबह के लिए एक योजना सुझाइए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X08",
+   "pair_id": "P04",
+   "polarity": "must_not",
+   "topic": "Jaipur weekend plan",
+   "feature": "ending question",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm visiting Jaipur for a weekend. Can you suggest a rough plan for Saturday? Never ask me a question; do not use question marks in any reply.",
+     "hi": "मैं एक सप्ताहांत के लिए जयपुर जा रहा हूँ। क्या आप शनिवार के लिए एक मोटी-मोटी योजना सुझा सकते हैं? मुझसे कभी कोई प्रश्न न पूछें; किसी भी उत्तर में प्रश्नचिह्न का उपयोग न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I'd like to include one famous fort. Which one fits best?",
+     "hi": "मैं एक प्रसिद्ध किला शामिल करना चाहता हूँ। कौन-सा सबसे उपयुक्त रहेगा?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a good place for lunch to the plan.",
+     "hi": "योजना में दोपहर के भोजन के लिए एक अच्छी जगह जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now suggest a plan for Sunday morning.",
+     "hi": "अब रविवार सुबह के लिए एक योजना सुझाइए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X09",
+   "pair_id": "P05",
+   "polarity": "must",
+   "topic": "candle product description",
+   "feature": "✅ emoji",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I run a small candle shop. Please write a short product description for a lavender candle. Include the ✅ emoji at least once in every reply.",
+     "hi": "मैं मोमबत्तियों की एक छोटी दुकान चलाता हूँ। कृपया लैवेंडर मोमबत्ती के लिए एक छोटा उत्पाद-विवरण लिखें। हर उत्तर में ✅ इमोजी कम से कम एक बार शामिल करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that it burns for about 40 hours.",
+     "hi": "यह बताएँ कि यह लगभग 40 घंटे तक जलती है।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a sentence about the soy wax being eco-friendly.",
+     "hi": "सोया मोम के पर्यावरण के अनुकूल होने के बारे में एक वाक्य जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a similar description for a vanilla candle.",
+     "hi": "अब वनीला मोमबत्ती के लिए भी ऐसा ही एक विवरण लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X10",
+   "pair_id": "P05",
+   "polarity": "must_not",
+   "topic": "candle product description",
+   "feature": "✅ emoji",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I run a small candle shop. Please write a short product description for a lavender candle. Never use any emoji in any reply.",
+     "hi": "मैं मोमबत्तियों की एक छोटी दुकान चलाता हूँ। कृपया लैवेंडर मोमबत्ती के लिए एक छोटा उत्पाद-विवरण लिखें। किसी भी उत्तर में कभी कोई इमोजी इस्तेमाल न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that it burns for about 40 hours.",
+     "hi": "यह बताएँ कि यह लगभग 40 घंटे तक जलती है।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a sentence about the soy wax being eco-friendly.",
+     "hi": "सोया मोम के पर्यावरण के अनुकूल होने के बारे में एक वाक्य जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a similar description for a vanilla candle.",
+     "hi": "अब वनीला मोमबत्ती के लिए भी ऐसा ही एक विवरण लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X11",
+   "pair_id": "P06",
+   "polarity": "must",
+   "topic": "beginner workout routine",
+   "feature": "heading",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I want to start working out three days a week. Can you suggest a simple beginner routine? Start every reply with a heading line that begins with '# '.",
+     "hi": "मैं हफ़्ते में तीन दिन कसरत शुरू करना चाहता हूँ। क्या आप शुरुआती लोगों के लिए एक सरल दिनचर्या सुझा सकते हैं? हर उत्तर की शुरुआत '# ' से शुरू होने वाली एक शीर्षक-पंक्ति से करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I only have dumbbells at home. Can you adjust it?",
+     "hi": "मेरे पास घर पर केवल डंबल हैं। क्या आप इसे उसके अनुसार बदल सकते हैं?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a short warm-up I can do before each session.",
+     "hi": "हर सत्र से पहले किया जा सकने वाला एक छोटा वार्म-अप जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now suggest what I should eat after a workout.",
+     "hi": "अब बताइए कि कसरत के बाद मुझे क्या खाना चाहिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X12",
+   "pair_id": "P06",
+   "polarity": "must_not",
+   "topic": "beginner workout routine",
+   "feature": "heading",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I want to start working out three days a week. Can you suggest a simple beginner routine? Never use headings; do not start any line with '#'.",
+     "hi": "मैं हफ़्ते में तीन दिन कसरत शुरू करना चाहता हूँ। क्या आप शुरुआती लोगों के लिए एक सरल दिनचर्या सुझा सकते हैं? शीर्षकों का उपयोग कभी न करें; किसी भी पंक्ति की शुरुआत '#' से न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "I only have dumbbells at home. Can you adjust it?",
+     "hi": "मेरे पास घर पर केवल डंबल हैं। क्या आप इसे उसके अनुसार बदल सकते हैं?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a short warm-up I can do before each session.",
+     "hi": "हर सत्र से पहले किया जा सकने वाला एक छोटा वार्म-अप जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now suggest what I should eat after a workout.",
+     "hi": "अब बताइए कि कसरत के बाद मुझे क्या खाना चाहिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X13",
+   "pair_id": "P07",
+   "polarity": "must",
+   "topic": "tomato soup description",
+   "feature": "parentheses",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Please write a short description of how to make a simple tomato soup. Every reply must include at least one remark in parentheses.",
+     "hi": "कृपया सादा टमाटर का सूप बनाने का तरीका बताने वाला एक छोटा विवरण लिखें। हर उत्तर में कोष्ठक में लिखी कम से कम एक टिप्पणी होनी चाहिए।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you make it vegan?",
+     "hi": "क्या आप इसे वीगन बना सकते हैं?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a tip for making it creamier.",
+     "hi": "इसे और मलाईदार बनाने के लिए एक सुझाव जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now describe how to make garlic bread to go with it.",
+     "hi": "अब इसके साथ परोसने के लिए लहसुन की ब्रेड बनाने का तरीका बताइए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X14",
+   "pair_id": "P07",
+   "polarity": "must_not",
+   "topic": "tomato soup description",
+   "feature": "parentheses",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Please write a short description of how to make a simple tomato soup. Never use parentheses in any reply.",
+     "hi": "कृपया सादा टमाटर का सूप बनाने का तरीका बताने वाला एक छोटा विवरण लिखें। किसी भी उत्तर में कोष्ठकों का उपयोग कभी न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Can you make it vegan?",
+     "hi": "क्या आप इसे वीगन बना सकते हैं?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add a tip for making it creamier.",
+     "hi": "इसे और मलाईदार बनाने के लिए एक सुझाव जोड़ें।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now describe how to make garlic bread to go with it.",
+     "hi": "अब इसके साथ परोसने के लिए लहसुन की ब्रेड बनाने का तरीका बताइए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X15",
+   "pair_id": "P08",
+   "polarity": "must",
+   "topic": "gardening company bio",
+   "feature": "paragraph count",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Please write a short bio for my small gardening company. Every reply must be exactly two paragraphs separated by one blank line.",
+     "hi": "कृपया मेरी छोटी बागवानी कंपनी के लिए एक छोटा परिचय लिखें। हर उत्तर ठीक दो अनुच्छेदों का होना चाहिए, जिनके बीच एक खाली पंक्ति हो।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that we have been in business for 12 years.",
+     "hi": "यह बताएँ कि हमें व्यवसाय में 12 साल हो गए हैं।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add that we specialize in balcony gardens.",
+     "hi": "यह जोड़ें कि हम बालकनी के बगीचों में विशेषज्ञ हैं।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short bio for the founder.",
+     "hi": "अब संस्थापक के लिए एक छोटा परिचय लिखिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X16",
+   "pair_id": "P08",
+   "polarity": "must_not",
+   "topic": "gardening company bio",
+   "feature": "paragraph count",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Please write a short bio for my small gardening company. Never split a reply into more than one paragraph; no blank lines.",
+     "hi": "कृपया मेरी छोटी बागवानी कंपनी के लिए एक छोटा परिचय लिखें। किसी भी उत्तर को एक से अधिक अनुच्छेदों में कभी न बाँटें; कोई खाली पंक्ति न हो।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that we have been in business for 12 years.",
+     "hi": "यह बताएँ कि हमें व्यवसाय में 12 साल हो गए हैं।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add that we specialize in balcony gardens.",
+     "hi": "यह जोड़ें कि हम बालकनी के बगीचों में विशेषज्ञ हैं।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short bio for the founder.",
+     "hi": "अब संस्थापक के लिए एक छोटा परिचय लिखिए।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X17",
+   "pair_id": "P09",
+   "polarity": "must",
+   "topic": "coffee shop caption",
+   "feature": "hashtags",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm opening a new coffee shop next week. Please write a short social media caption to announce it. End every reply with exactly two hashtags.",
+     "hi": "मैं अगले हफ़्ते एक नई कॉफ़ी शॉप खोल रहा हूँ। कृपया इसकी घोषणा के लिए सोशल मीडिया पर डालने हेतु एक छोटा कैप्शन लिखें। हर उत्तर का अंत ठीक दो हैशटैग से करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that the first 50 customers get a free cookie.",
+     "hi": "यह बताएँ कि पहले 50 ग्राहकों को एक मुफ़्त कुकी मिलेगी।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add the opening hours: 8 a.m. to 6 p.m. daily.",
+     "hi": "खुलने का समय जोड़ें: रोज़ सुबह 8 बजे से शाम 6 बजे तक।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short caption for a post thanking everyone after opening day.",
+     "hi": "अब उद्घाटन के दिन के बाद सभी को धन्यवाद देने वाली पोस्ट के लिए एक छोटा कैप्शन लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X18",
+   "pair_id": "P09",
+   "polarity": "must_not",
+   "topic": "coffee shop caption",
+   "feature": "hashtags",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "I'm opening a new coffee shop next week. Please write a short social media caption to announce it. Never use hashtags in any reply.",
+     "hi": "मैं अगले हफ़्ते एक नई कॉफ़ी शॉप खोल रहा हूँ। कृपया इसकी घोषणा के लिए सोशल मीडिया पर डालने हेतु एक छोटा कैप्शन लिखें। किसी भी उत्तर में हैशटैग का उपयोग कभी न करें।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "Mention that the first 50 customers get a free cookie.",
+     "hi": "यह बताएँ कि पहले 50 ग्राहकों को एक मुफ़्त कुकी मिलेगी।",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "A small unrelated question: name one indoor plant that people commonly keep on a desk.",
+     "hi": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "Add the opening hours: 8 a.m. to 6 p.m. daily.",
+     "hi": "खुलने का समय जोड़ें: रोज़ सुबह 8 बजे से शाम 6 बजे तक।",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now write a short caption for a post thanking everyone after opening day.",
+     "hi": "अब उद्घाटन के दिन के बाद सभी को धन्यवाद देने वाली पोस्ट के लिए एक छोटा कैप्शन लिखें।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X19",
+   "pair_id": "P10",
+   "polarity": "must",
+   "topic": "credit score explainer",
+   "feature": "closing offer",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Can you explain in simple terms what a credit score is? End every reply with the exact sentence: \"Let me know if you need anything else.\"",
+     "hi": "क्या आप सरल शब्दों में समझा सकते हैं कि क्रेडिट स्कोर क्या होता है? हर उत्तर का अंत ठीक इसी वाक्य से करें: \"Let me know if you need anything else.\"",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "How is it calculated?",
+     "hi": "इसकी गणना कैसे की जाती है?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "What are the fastest ways to improve mine?",
+     "hi": "इसे सुधारने के सबसे तेज़ तरीके क्या हैं?",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now explain what a credit report is.",
+     "hi": "अब समझाइए कि क्रेडिट रिपोर्ट क्या होती है।",
+     "distractor": false
+    }
+   ]
+  },
+  {
+   "id": "LIS-X20",
+   "pair_id": "P10",
+   "polarity": "must_not",
+   "topic": "credit score explainer",
+   "feature": "closing offer",
+   "mix_hindi_turns": [
+    2,
+    3,
+    4
+   ],
+   "turns": [
+    {
+     "n": 1,
+     "en": "Can you explain in simple terms what a credit score is? Never offer further help or ask whether I need anything else.",
+     "hi": "क्या आप सरल शब्दों में समझा सकते हैं कि क्रेडिट स्कोर क्या होता है? आगे और मदद की पेशकश कभी न करें और यह भी न पूछें कि मुझे कुछ और चाहिए या नहीं।",
+     "distractor": false
+    },
+    {
+     "n": 2,
+     "en": "How is it calculated?",
+     "hi": "इसकी गणना कैसे की जाती है?",
+     "distractor": false
+    },
+    {
+     "n": 3,
+     "en": "Quick side question: what is one everyday use for a paper clip?",
+     "hi": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+     "distractor": true
+    },
+    {
+     "n": 4,
+     "en": "What are the fastest ways to improve mine?",
+     "hi": "इसे सुधारने के सबसे तेज़ तरीके क्या हैं?",
+     "distractor": false
+    },
+    {
+     "n": 5,
+     "en": "Now explain what a credit report is.",
+     "hi": "अब समझाइए कि क्रेडिट रिपोर्ट क्या होती है।",
+     "distractor": false
+    }
+   ]
+  }
+ ]
+}
