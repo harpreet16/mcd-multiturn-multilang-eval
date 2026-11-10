@@ -70,7 +70,11 @@ class OpenAIChat:
             except urllib.error.HTTPError as e:
                 # Retry rate limits / server errors; fail fast on bad requests or keys.
                 if e.code not in (429, 500, 502, 503) or attempt == self.retries - 1:
-                    raise
+                    try:                                   # the server explains why it refused: show that, not just "Bad Request"
+                        detail = e.read().decode("utf-8", "replace")[:400]
+                    except Exception:
+                        detail = ""
+                    raise RuntimeError(f"HTTP {e.code} from the model server: {detail or e.reason}") from e
                 time.sleep(2 ** attempt)
             except (TimeoutError, urllib.error.URLError, ConnectionError, OSError) as e:
                 # A slow or dropped connection is retried a few times, then reported.

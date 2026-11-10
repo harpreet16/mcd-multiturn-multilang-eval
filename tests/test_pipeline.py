@@ -501,6 +501,25 @@ class ServerDownTests(unittest.TestCase):
         self.assertEqual(read_jsonl(ws.responses), [])
 
 
+class ErrorDetailTests(unittest.TestCase):
+    def test_a_rejected_request_shows_the_servers_reason(self):
+        import threading
+        from http.server import BaseHTTPRequestHandler, HTTPServer
+        from mcd.backends import OpenAIChat
+        class H(BaseHTTPRequestHandler):
+            def do_POST(self):
+                self.rfile.read(int(self.headers["Content-Length"]))
+                out = json.dumps({"error": {"message": "maximum context length is 16384 tokens, you requested 17000"}}).encode()
+                self.send_response(400); self.send_header("Content-Length", str(len(out))); self.end_headers(); self.wfile.write(out)
+            def log_message(self, *a): pass
+        srv = HTTPServer(("127.0.0.1", 0), H); threading.Thread(target=srv.serve_forever, daemon=True).start()
+        with self.assertRaises(RuntimeError) as ctx:
+            OpenAIChat("m", f"http://127.0.0.1:{srv.server_address[1]}/v1").chat([{"role": "user", "content": "x"}])
+        srv.shutdown()
+        self.assertIn("maximum context length", str(ctx.exception))
+        self.assertIn("400", str(ctx.exception))
+
+
 class ParallelTests(unittest.TestCase):
     def test_parallel_run_and_grade_match_sequential(self):
         outputs = []

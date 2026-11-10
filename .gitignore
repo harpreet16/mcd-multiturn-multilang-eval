@@ -11,3 +11,7 @@ __pycache__/
 *.pyc
 .DS_Store
 *.zip
+
+# local logs / tool output
+vllm.log
+*.log
