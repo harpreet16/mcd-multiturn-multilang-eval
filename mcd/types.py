@@ -17,7 +17,8 @@ class Conversation:
     id: str
     english: list      # list[Turn]  ("All English" version)
     mix: list          # list[Turn]  ("English + Hindi" version)
-    hindi: list = field(default_factory=list)   # all-Hindi version, if authored
+    hindi: list = field(default_factory=list)   # all-Hindi version, if available
+    translated: list = field(default_factory=list)  # turn numbers of `hindi` that were machine-translated (unverified)
 
 
 @dataclass

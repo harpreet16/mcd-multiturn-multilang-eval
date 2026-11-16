@@ -76,6 +76,59 @@ def judge_apply(ws, verdicts_path, judge_name="claude (in-session)"):
     return {"applied": n}
 
 
+def all_judge_questions(ws):
+    """Every meaning-rule question the current responses raise, whether or not it already has a verdict.
+
+    Built by grading a throw-away copy of the workspace in manual mode with an empty judge cache.
+    """
+    import shutil, tempfile
+    tmp = Workspace(tempfile.mkdtemp())
+    for name in ("conversations", "variants", "responses", "rulebook"):
+        shutil.copy(getattr(ws, name), getattr(tmp, name))
+    grader.grade(tmp, None)
+    return json.load(open(tmp.judge_pending)) if os.path.exists(tmp.judge_pending) else []
+
+
+def audit_export(ws, n=50, seed=0, folder=None):
+    """Write a blinded sample of judged questions for a SECOND person to answer (no verdicts shown)."""
+    import random
+    folder = folder or str(ws.root)
+    questions = all_judge_questions(ws)
+    cache = json.load(open(ws.judge_cache)) if os.path.exists(ws.judge_cache) else {}
+    questions = [q for q in questions if q["key"] in cache]
+    rng = random.Random(seed)
+    sample = rng.sample(questions, min(n, len(questions)))
+    json.dump([{"key": q["key"], "kind": q["kind"], "question": q["question"], "material": q["material"]}
+               for q in sample], open(os.path.join(folder, "judge_audit_sample.json"), "w"), ensure_ascii=False, indent=1)
+    json.dump([{"key": q["key"], "verdict": "", "reason": ""} for q in sample],
+              open(os.path.join(folder, "judge_audit_answers_template.json"), "w"), ensure_ascii=False, indent=1)
+    return {"sampled": len(sample), "of": len(questions), "folder": folder}
+
+
+def audit_score(ws, answers_path):
+    """Agreement between a second judge's answers and the verdicts in the judge cache."""
+    cache = json.load(open(ws.judge_cache))
+    pending = {q["key"]: q for q in all_judge_questions(ws)}
+    both, disagree = [], []
+    for a in json.load(open(answers_path, encoding="utf-8")):
+        v = str(a.get("verdict", "")).strip().upper()
+        if v not in ("YES", "NO") or a["key"] not in cache:
+            continue
+        mine, theirs = cache[a["key"]], v == "YES"
+        both.append((mine, theirs))
+        if mine != theirs:
+            disagree.append({"key": a["key"], "question": pending.get(a["key"], {}).get("question"),
+                             "first_judge": "YES" if mine else "NO", "second_judge": v, "reason": a.get("reason", "")})
+    n = len(both)
+    if not n:
+        return {"answered": 0}
+    agree = sum(m == t for m, t in both) / n
+    p_yes_m, p_yes_t = sum(m for m, _ in both) / n, sum(t for _, t in both) / n
+    chance = p_yes_m * p_yes_t + (1 - p_yes_m) * (1 - p_yes_t)
+    kappa = (agree - chance) / (1 - chance) if chance < 1 else 1.0
+    return {"answered": n, "agreement": agree, "cohens_kappa": kappa, "disagreements": disagree}
+
+
 def preflight(ws, model, base_url=None, api_key=None, max_tokens=4096, extra_body=None, judge_model=None):
     """Quick end-to-end check before a long run. Returns [(step, ok, detail, seconds)]."""
     import tempfile, time
@@ -101,9 +154,10 @@ def preflight(ws, model, base_url=None, api_key=None, max_tokens=4096, extra_bod
         return steps
 
     def conversation():
-        variant = next(v for v in ws.load_variants() if (v.conv_id, v.condition) == ("LIS-X01", "EN"))
+        variant = next(v for v in ws.load_variants() if (v.conv_id, v.condition) == ("LIS-S15", "EN"))
         replies, cut = runner.play(variant, backend)
-        rule = next(r for r in Rulebook(ws.rulebook).rules if r["id"] == "LIS-X01-R1")
+        rule = next(r for r in Rulebook(ws.rulebook).rules
+                    if r["conv_id"] == "LIS-S15" and r["check"]["type"] != "judge")
         followed = [run_check(rule["check"], replies[i]) for i, t in enumerate(variant.turns) if not t.distractor]
         empty = sum(1 for x in replies if not x.strip())
         return (empty == 0 and not any(cut)), f"{len(replies)} replies, empty={empty}, cut_off={sum(cut)}, rule followed on {sum(followed)}/{len(followed)} graded turns"
@@ -120,12 +174,22 @@ def preflight(ws, model, base_url=None, api_key=None, max_tokens=4096, extra_bod
 
 
 def results(ws, group="all"):
-    """group: 'all', 'S' (original dataset) or 'X' (curated conversations)."""
+    """group: 'all' or 'S' (the original dataset; the only dataset, so they are the same)."""
     grades = all_grades = read_jsonl(ws.grades)
-    if group in ("S", "X"):
+    if group == "S":
         grades = [g for g in grades if g["conv_id"].startswith(f"LIS-{group}")]
-    return {"summary": analysis.summarize(grades), "grid": analysis.rule_grid(grades),
-            "headroom": analysis.headroom(all_grades), "quality": analysis.quality(all_grades)}
+    keep = lambda r: group == "all" or r["conv_id"].startswith(f"LIS-{group}")
+    variants = {(v.conv_id, v.condition): [t.__dict__ for t in v.turns] for v in ws.load_variants()}
+    rules = Rulebook(ws.rulebook).rules
+    exposure = analysis.hindi_exposure(grades, rules, variants)
+    by_turn = analysis.hindi_exposure_by_turn(grades, rules, variants)
+    models = sorted({g["model"] for g in grades})
+    turn_level = {m: {"cost": analysis.turn_level_cost(grades, by_turn, m),
+                      "lapse": {c: analysis.lapse_rate(grades, m, c) for c in sorted({g["condition"] for g in grades if g["model"] == m})}}
+                  for m in models}
+    return {"turn_level": turn_level, "summary": analysis.summarize(grades, exposure), "grid": analysis.rule_grid(grades),
+            "headroom": analysis.headroom(all_grades), "quality": analysis.quality(all_grades),
+            "leakage": analysis.leakage(variants, [r for r in latest_responses(ws.responses) if keep(r)])}
 
 
 def rulebook_view(ws):

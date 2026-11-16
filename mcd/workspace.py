@@ -68,7 +68,7 @@ class Workspace:
     def load_conversations(self):
         return [Conversation(r["id"], [Turn(**t) for t in r["english"]],
                              [Turn(**t) for t in r["mix"]],
-                             [Turn(**t) for t in r.get("hindi", [])])
+                             [Turn(**t) for t in r.get("hindi", [])], r.get("translated", []))
                 for r in read_jsonl(self.conversations)]
 
     def save_variants(self, variants):

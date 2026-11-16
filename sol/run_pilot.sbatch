@@ -18,7 +18,7 @@ MODEL="${MODEL:-Qwen/Qwen3-4B-Instruct-2507}"          # or meta-llama/Llama-3.2
 PROJECT="${PROJECT:-$HOME/MCD-multiturn-multilang-eval}"
 WORKSPACE="${WORKSPACE:-/scratch/$USER/mcd_runs/main}"   # results; /scratch is not backed up, copy the results home when done
 CONVS="${CONVS:-LIS-S04 LIS-S09 LIS-S16 LIS-S19 LIS-S20}"
-CONDS="${CONDS:-EN EN_REP MIX_CLEAN}"
+CONDS="${CONDS:-EN MIX_CLEAN}"
 # -----------------------------------------------------------------------------
 
 module load mamba/latest           # CHECK: run `module avail mamba` if this name is wrong

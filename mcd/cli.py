@@ -75,6 +75,10 @@ def main(argv=None):
     sub.add_parser("status", help="progress per model and condition (run it from a second terminal)")
     s = sub.add_parser("judge-apply", help="merge manual verdicts (JSON list of {key, verdict, reason}) into the judge cache")
     s.add_argument("verdicts")
+    s = sub.add_parser("audit-export", help="write a blinded sample of judged questions for a second judge")
+    s.add_argument("--n", type=int, default=50); s.add_argument("--seed", type=int, default=0)
+    s = sub.add_parser("audit-score", help="agreement between a second judge's answers (JSON) and the first judge")
+    s.add_argument("answers")
     s = sub.add_parser("preflight", help="1-minute check of connection, token budget and judge before a long run")
     s.add_argument("--model", required=True); s.add_argument("--judge-model"); _add_connection_args(s)
     s.add_argument("--max-tokens", type=int, default=4096)
@@ -112,6 +116,10 @@ def main(argv=None):
             print("nothing saved yet")
     elif args.command == "judge-apply":
         print(service.judge_apply(ws, args.verdicts))
+    elif args.command == "audit-export":
+        print(service.audit_export(ws, args.n, args.seed))
+    elif args.command == "audit-score":
+        print(json.dumps(service.audit_score(ws, args.answers), indent=1, ensure_ascii=False))
     elif args.command == "preflight":
         steps = service.preflight(ws, args.model, args.base_url, _api_key(args), args.max_tokens,
                                   json.loads(args.extra_body) if args.extra_body else None, args.judge_model)

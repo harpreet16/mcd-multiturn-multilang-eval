@@ -1,0 +1,139 @@
+{
+ "_note": "Hindi versions of the original-20 turns that had no human-written Hindi. Translated by Claude (Anthropic) on 2026-11-09. NOT yet verified by a native Hindi speaker. Where the dataset already has a human-written Hindi turn, that turn is used and the entry here is ignored. Two conventions: (1) pasted source material (the job advertisement in LIS-S06 turn 2, the crochet pattern in LIS-S02 turn 11, the grade lists in LIS-S13) stays as pasted; (2) words the model must use, avoid or end with (quoted words, exact phrases, headings) stay in English.",
+ "translations": {
+  "LIS-S01": {
+   "1": "मैं अपने बच्चे के लिए बास्केटबॉल ट्रेनिंग टीम ढूँढ रहा हूँ, लेकिन मुझे समझ नहीं आ रहा कि रिक्रूटर्स से उसके और उसकी बास्केटबॉल क्षमताओं के बारे में कैसे बात करूँ। क्या आप मुझे कुछ सुझाव दे सकते हैं कि उसके बारे में कैसे बात करूँ ताकि वह इस खेल में अच्छा लगे?",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "ठीक है, बहुत बढ़िया, यह पहले से बेहतर लग रहा है। क्या आप इस ईमेल के ब्योरे वही रखते हुए इसे Coach Bob के नज़रिए से लिख सकते हैं?",
+   "7": "बढ़िया। इसी फ़ॉर्मेट और इन्हीं ब्योरों को रखते हुए, कृपया ईमेल में एक पहलू बदल दीजिए। Coach Bob असल में Coach Martin को व्यक्तिगत रूप से जानते हैं, तो क्या आप ईमेल को इसी के अनुसार बदल सकते हैं?",
+   "9": "एक और छोटा-सा सवाल, विषय से हटकर: चार्जिंग केबल को सलीके से रखने का कोई आसान तरीका सुझाइए।",
+   "11": "ठीक है, ये शूटिंग आँकड़े Coach Martin के लिए महत्वपूर्ण हो सकते हैं। क्या आप मुझे Coach Martin को भेजे जाने वाले मेरे ईमेल का ऐसा संस्करण दिखा सकते हैं जिसमें ये आँकड़े शामिल हों? साथ ही यह भी बताइए कि इससे वह एक प्रभावी शूटर कैसे साबित होता है।",
+   "13": "क्या आप इस पोस्ट में \"about me\" सेक्शन में Michael की 32 इंच की वर्टिकल जंप जोड़ सकते हैं? साथ ही कृपया उपलब्धियों (achievements) के अंतर्गत Minor's Gold Cup जोड़ दीजिए, 35% वाला आँकड़ा हटा दीजिए, और नीचे एक रेफ़रेंस सेक्शन जोड़ दीजिए। रेफ़रेंस सेक्शन में Coach Bob को उनके ईमेल के साथ शामिल कीजिए, और Coach Simon को भी, जिनका ईमेल coachsimon@fakeemailaddress.com है।"
+  },
+  "LIS-S02": {
+   "1": "नमस्ते! मैं बुनाई में नया हूँ और गार्टर स्टिच से एक सादा स्कार्फ़ बनाना चाहता हूँ। क्या आप मुझे चरण-दर-चरण निर्देश दे सकते हैं?",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "एक दोस्त ने सुझाव दिया कि अतिरिक्त सजावट के लिए मेरे स्कार्फ़ में क्रोशिए का बॉर्डर जोड़ दूँ। क्या एक ही प्रोजेक्ट में बुनाई और क्रोशिया दोनों को मिलाना संभव है? मैं अपने बुने हुए स्कार्फ़ में क्रोशिए का एक सादा बॉर्डर कैसे जोड़ूँ?",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "11": "मुझे एक पत्रिका में स्कार्फ़ का यह पैटर्न मिला, लेकिन पन्ना फटा हुआ था, इसलिए न कोई तस्वीर थी और न स्टिच का नाम। मुझे लगता है यह ब्रूमस्टिक स्टिच हो सकती है। क्या आप पैटर्न के निर्देश देखकर पहचान सकते हैं कि यह कौन-सी स्टिच है?\n\nCh 20\n\nR1: Put loop that is on hook on the object, pull up a loop from each ch and put it on object, repeat across (20 loops)\n\nR2: Remove first 4 loops, insert hook into 4 loops, YO and pull through loops, ch 1, 4 sc in loops, *remove next 4 loops from object, insert hook into 4 loops just removed, 4 sc in loops* repeat across (20 sts)\n\nR3: Put loop that is on hook on the object, pull up a loop from front to back from each st and put on object, repeat across (20 loops)",
+   "12": "ऐसा लगता है कि यह स्टिच शेल स्टिच जैसी ही है, क्योंकि दोनों स्टिचों में सिंगल क्रोशिए की 4 पंक्तियाँ होती हैं।"
+  },
+  "LIS-S03": {
+   "1": "मैं सोच रहा हूँ कि फिर से फ़िटनेस रूटीन शुरू करूँ। मैं सचमुच अपने हृदय-स्वास्थ्य को बेहतर बनाना और अपनी सहनशक्ति बढ़ाना चाहता हूँ। मुझे याद है कि कॉलेज में, Davidson में, फ़ुटबॉल मैचों के दौरान मुझमें कितनी ज़्यादा सहनशक्ति हुआ करती थी। वे भी क्या दिन थे!",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "मेरा कार्यक्रम बहुत व्यस्त रहता है और मुझे अक्सर व्यापार के सिलसिले में अलग-अलग टाइम ज़ोन में यात्रा करनी पड़ती है। ऐसी परिस्थितियों में मैं अपना फ़िटनेस रूटीन कैसे बनाए रखूँ?",
+   "7": "इन दिनों मुझे नींद आने में परेशानी हो रही है, खासकर यात्रा और जेट लैग की वजह से। क्या आपके पास नींद की गुणवत्ता सुधारने और अलग-अलग टाइम ज़ोन के साथ तालमेल बिठाने के कुछ सुझाव हैं?",
+   "9": "एक और छोटा-सा सवाल, विषय से हटकर: चार्जिंग केबल को सलीके से रखने का कोई आसान तरीका सुझाइए।",
+   "11": "यह अच्छा है। क्या आपके पास मेरे लिए, जो महसूस कर रहा हूँ कि अब मैं अपने सबसे अच्छे दौर में नहीं रहा, कोई मानसिक सलाह है? बेहतर होगा कि वह जाने-माने मनोवैज्ञानिकों की हो, ताकि मैं फिर से अपने पैरों पर खड़ा हो सकूँ।",
+   "13": "ठीक है, यह अच्छा है। मुझे सुझाव दीजिए कि शुरुआत में कितने किलो के वज़न से शुरू करूँ और समय के साथ उसकी प्रगति कैसी होनी चाहिए। तो 2 हफ़्तों में मुझे कितना वज़न उठाना चाहिए?"
+  },
+  "LIS-S04": {
+   "1": "मैं बाली, इंडोनेशिया में एक नया योग प्रशिक्षक हूँ। मुझे जंगल में रिट्रीट शुरू करने के बारे में जानने में बहुत रुचि है। क्या आप कुछ जानकारी दे सकते हैं? कृपया अपने उत्तरों में \"mindful\", \"heal\" और \"relaxation\" शब्दों का उपयोग न करें।",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "दिलचस्प सुझावों के लिए धन्यवाद, सही स्थान चुनते समय मैं इन पर विचार करूँगा। बाली में जंगल वाला रिट्रीट आयोजित करने का सबसे अच्छा समय कौन-सा है?",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "10": "क्या आप रिट्रीट के उद्देश्य लिखने में मेरी मदद कर सकते हैं? कुछ लोग इस गतिविधि का दायरा शायद न समझें और इसे सिर्फ़ जंगल में कैंपिंग समझ लें।",
+   "12": "क्या आप आत्म-देखभाल (self-care) के तरीकों के बारे में और विस्तार से बता सकते हैं? योग के अपने ज्ञान से अलग इनके बारे में मैं और जानना चाहता हूँ।"
+  },
+  "LIS-S05": {
+   "1": "मैं स्कॉटलैंड का हूँ और पिछले 5 साल से यहाँ फ़िलीपींस में प्रवासी के रूप में रह रहा हूँ। मुझे यह जगह सचमुच बहुत पसंद है, खासकर यहाँ का मौसम और जीवन जीने का तरीका।",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "ऐसा लगता है कि साझेदारी (partnership) ही सबसे अच्छा ढाँचा है, क्योंकि हमारी अभी शादी नहीं हुई है और यह दोनों पक्षों के लिए उचित है। कानूनी आवश्यकताओं के अलावा, यहाँ ट्रैवल एजेंसी का व्यवसाय शुरू करने के लिए मुझे कौन-सी संपत्तियाँ तैयार रखनी चाहिए और उनमें निवेश करना चाहिए?",
+   "7": "बहुत बढ़िया, यह हमारे लिए बेहद मददगार है। हमारी शुरुआती योजना छोटे स्तर से शुरू करने और अपने घर में ही ऑफ़िस की जगह रखने की है। क्या आपको लगता है कि यह संभव है?",
+   "9": "एक और छोटा-सा सवाल, विषय से हटकर: चार्जिंग केबल को सलीके से रखने का कोई आसान तरीका सुझाइए।",
+   "11": "क्या आप नियमों का पालन न करने के परिणाम सूचीबद्ध कर सकते हैं?",
+   "13": "अरे, मैं बताना भूल गया कि कुछ दिन पहले मैंने गलती से अपनी कार विकलांग व्यक्तियों (handicapped) के लिए आरक्षित पार्किंग क्षेत्र में खड़ी कर दी थी। यह पूरी तरह मेरी गलती है कि मैंने PWD पार्किंग के साइनबोर्ड को नज़रअंदाज़ कर दिया। खरीदारी के बाद मैंने देखा कि मॉल के बेसमेंट पार्किंग क्षेत्र में मेरी कार पर पहले ही क्लैंप लग चुका था।"
+  },
+  "LIS-S06": {
+   "1": "नमस्ते, मैं एक सार्वजनिक स्वास्थ्य शोधकर्ता हूँ और लोकप्रिय संस्कृति में स्वास्थ्य संबंधी मुद्दों के प्रतिनिधित्व का अध्ययन करता हूँ। मैं इस समय नौकरी की तलाश में हूँ, तो क्या आप मेरे लिए एक रिज़्यूमे का मसौदा तैयार कर सकते हैं, जिसमें एक प्रभावशाली सारांश अनुभाग हो?",
+   "2": "क्या आप सारांश अनुभाग को मुझे मिली इस नौकरी की भूमिका के अनुसार ढाल सकते हैं (नौकरी का विज्ञापन नीचे अंग्रेज़ी में जस का तस चिपकाया गया है):\nThe Role\nLeads and develops projects, including research, planning, and evaluation activities with First Nations, Inuit, Metis, African, Caribbean, and Black communities. Prepares recommendations using evidence-based research and qualitative and quantitative evaluation mechanisms to further develop and enhance programs and policies, with a culturally appropriate and trauma and violence informed lens.\nDuties/Responsibilities\nFacilitates community-led processes or leads project teams in planning public health initiatives in collaboration with First Nations, Inuit, Metis, African, Caribbean, and Black communities. Compiles evidence-based information and local data on public health issues, including identifying the effects of determinants of health (biological, social, cultures, economic, physical) to provide context and inform approach. Conducts risk analysis, research, and evaluation of health effects. Facilitates multi-stakeholder consultation to develop policy and program options and recommends approach based on evidence, legislation, and policies. Formulates performance measures and outcome indicators in consultation with manager and other staff. Supports the implementation of departmental initiatives as needed.\nPlans, coordinates and conducts research and evaluation projects, using an equity and cultural approach. Provides expertise in research and evaluation methods. Designs methodology for data collection and develops data gathering tools to facilitate quantitative and qualitative data collection. Conducts data analysis planning and approach to formulate explanations; coordinates and leads groups to implement evaluation plans; and compiles results and recommendations for management. Advises staff and community groups on valid sources of information related to public health.\nCollaborates in project management or leads project teams, including project planning, implementation, monitoring, and evaluation activities at the program, divisional, or departmental level. Applies project management principles and best practices; prepares work plans for management approval. Anticipates issues and opportunities and mitigates risks. Collaborates with consultants as appropriate. Coordinates and conducts training of staff and external partners, as required.\nDevelops and implements data tracking systems to track program activities. Generates reports, conducts analysis, and interprets key findings to present to staff, management, and other key stakeholders.\nLeads health promotion initiatives using evidence considering the determinants of health and health equity. Identifies and prepares recommendations to address population and public health issues, and monitors and evaluates implementation.\nIn consultation with management, Health Communications and other staff, coordinates and implements health communication campaigns using various mediums, including the media and community networks. Provides health information (e.g., health status, demographic, statistical, programmatic, scientific information) to target audiences (e.g., professional, community groups, general population).\nPrepares and presents reports for regional staff, as well as departmental staff, Council, Standing Committees, external agencies, and the public. Writes other information documents, briefs, factsheets, and articles on a range of public health issues per program assignment. Develops budgetary components of funding proposals in collaboration with community partners, and drafts funding proposals on behalf of the department and community partners and groups.\nAdditional Duties/Responsibilities\nParticipates in, supports, and advocates for policy development for First Nations, Inuit, Metis, African, Caribbean, and Black community partners. Identifies and assesses the implications of policy options (e.g., health, economic, administrative, legal, social, environmental, political, and other factors) and provides policy advice on public health issues. Acts as a resource regarding the policy making process and facilitates community involvement/ engagement and community-led decision-making processes in policy development.\nSupports networks and coalitions consisting of community-based organizations, specifically First Nations, Inuit, Metis, African, Caribbean, and Black communities, and systems partners (e.g., police, paramedics) to promote inter-sector collaboration and decision-making on health issues. Recruits community partners and stakeholders (e.g., grassroots and community-based organizations, schools, businesses, associations) and builds and maintains relationships. Develops and leads community engagement strategies and consultation, including sharing knowledge, tools, expertise and experience to build community capacity. Documents community issues and prepares budget forecasts to implement proposals. Obtains commitments from participants and decision-makers.\nCultivates awareness of cultural, political and social context of Waterloo Region as it applies to public health initiatives to inform program planning and evaluation activities and ensure culturally appropriate and trauma and violence informed practices.\nContributes to team and organizational learning to advance public health goals and maintain organizational performance standards.\nCoordinates shared financial contributions from/distributions to multiple partners (community groups, provincial government) for specific projects, with management approval.\nPlans and prioritizes work per divisional work plan. Assists management in setting divisional work plan objectives and goals.\nRegularly meets with management to discuss project progress, update priorities, address key issues and questions, and review work upon completion. Recommendations involving program or policy changes are subject to management approval where appropriate.\nConsults with departmental staff on health promotion theory, strategies, and program planning, evaluation, and monitoring. Liaises with other regional staff regarding public health initiatives. Coordinates and evaluates work of unpaid students on practicum placement as needed.\nConsults with colleagues in other health units, provincial and federal ministries to discuss projects or grant proposals. Represents the department on provincial planning bodies. Works with external research consultants as needed.\nParticipates in the department’s Emergency Preparedness Plan.\nPerforms related duties as assigned.\nKnowledge, Skills, and Abilities\nKnowledge and skills are acquired through a Master’s degree in a related field plus 1 year of related experience, or an equivalent combination of related education and experience.\nKnowledge and skill in research, planning, and evaluation; health promotion strategies; policy development approaches; risk assessment; and community development/capacity building.\nBrings lived/living experience through personal understanding of the realities and concerns of priority communities and groups, such as First Nations, Inuit and Metis, African, Caribbean and Black, racialized, persons with disabilities, and/or member of the 2SLGBTQ+ or other under-represented communities.\nKnowledge of and ability to comply with corporate and departmental policies, procedures, mandates, programs and services, relevant legislation (e.g., Health Protection & Promotion Act, Ontario Public Health Standards, privacy) and other regulations and guidelines related to professional practice.\nUnderstanding of public administration, government processes, municipal government structure, and stakeholder needs and interests.\nAbility to apply public health sciences to practice and use evidence and research to inform health policies and programs. Knowledge of quantitative and qualitative research methods, research ethics, theories, and principles of public health (health promotion, community health planning, and program evaluation). Skill in statistical analysis.\nAbility to analyse health, political, socioeconomic, and financial factors when planning programs, and exercise sensitivity and diplomacy to balance various factors, including community process, culturally appropriate practices, departmental considerations, and research best practices. Ability to disseminate research findings in an accurate, timely, and meaningful way.\nProject management skills (principles, procedures, and practices) to plan and organize multi-stakeholder projects. Analytical and problem-solving skills to determine, plan, and develop project objectives. Research skills and ability to critically appraise and use evidence.\nAbility to consult with, develop and maintain trusting relationships with community-based and grassroots community groups, specifically from First Nations, Inuit, Metis, African, Caribbean, and Black communities.\nAdditional Knowledge, Skills, and Abilities\nCommunication, human relations, group facilitation, and team building skills to work effectively with stakeholders from different cultural backgrounds and support project teams; build community capacity; promote public health initiatives; facilitate meetings; present and disseminate information of a scientific nature to lay and professional audiences; exchange information with other public health professionals; and participate as an effective team member.\nAbility to read and critically appraise research and reports with an equity lens. Ability to write and compile reports and documents involving project plans and research finding, and content used in factsheets and information for public and staff, for manager approval. Ability to develop policies and procedures for manager approval.\nComputer skills with ability to use software such as Microsoft Office; information and document management systems; internet-based searching; and qualitative/quantitative data analysis software to use and interpret data.\nAbility to meet deadlines and work on multiple projects simultaneously.\nAbility to occasionally alter workday to conduct meetings outside regular working hours.",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "8": "क्या आप कौशल (skills) अनुभाग हटा सकते हैं?",
+   "12": "दरअसल, सारांश अनुभाग को वापस मूल मसौदे जैसा कर दीजिए, लेकिन पहले वाक्य में मेरी शिक्षा शामिल कर दीजिए।"
+  },
+  "LIS-S07": {
+   "1": "क्या आप हमारे कबीले (tribe) के पारंपरिक मूल्यों को बढ़ावा देने वाले एक इन्फ्लुएंसर के लिए पत्र का मसौदा तैयार करने में मेरी मदद कर सकते हैं? मैं उनके प्रयासों के लिए अपनी सराहना व्यक्त करना चाहता हूँ।",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "जोड़े गए अंश के लिए धन्यवाद। क्या आप इसमें एक छोटी-सी व्यक्तिगत कहानी भी शामिल कर सकते हैं कि इन्फ्लुएंसर के काम का हमारे समुदाय पर कैसे सकारात्मक प्रभाव पड़ा है?",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "9": "यह बढ़िया है, लेकिन क्या आप लेटरहेड और उसके नीचे की तारीख हटा सकते हैं? साथ ही पत्र को ज़्यादा संक्षिप्त और सीधा-सादा बना दीजिए। मुझे लगता है कि यह बहुत लंबा है।",
+   "11": "साथ ही, इन्फ्लुएंसर की मदद वाली कहानी को अंतिम से ठीक पहले वाले अनुच्छेद में रख दीजिए, और फिर अंतिम अनुच्छेद में संपर्क में बने रहने और पेशेवर संबंध बनाए रखने के बारे में एक समापन वाक्य जोड़ दीजिए।"
+  },
+  "LIS-S08": {
+   "1": "नमस्ते, मुझे एक क्लाइंट को ईमेल का मसौदा तैयार करना है, जिसमें उनकी संपत्ति (एस्टेट) के लिए 18वीं सदी की एक दुर्लभ प्राचीन डाइनिंग टेबल खरीदने का प्रस्ताव रखा जाए। क्या आप इसमें मदद कर सकते हैं?",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "क्या आप यह उजागर कर सकते हैं कि यह मेज़ अपनी अछूती, पूरी तरह संरक्षित अवस्था में है, और इस बात पर ज़ोर दे सकते हैं कि यह बिना किसी आधुनिक बदलाव के 18वीं सदी की शिल्पकला का एक प्रामाणिक नमूना है?",
+   "6": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "9": "एक और छोटा-सा सवाल, विषय से हटकर: चार्जिंग केबल को सलीके से रखने का कोई आसान तरीका सुझाइए।",
+   "10": "\"Historical Significance\" अनुभाग को दो शीर्षकों में बाँट दीजिए: \"Historical Significance\" और \"Characterization Details\"।",
+   "12": "अब सभी आवश्यकताओं को शामिल करके मुझे अंतिम ईमेल दीजिए।"
+  },
+  "LIS-S09": {
+   "1": "क्या आप एक प्रतिष्ठित विश्वविद्यालय में मार्केटिंग प्रोफ़ेसर के रूप में मेरी भूमिका को उजागर करने वाली LinkedIn प्रोफ़ाइल समरी का मसौदा तैयार करने में मेरी मदद कर सकते हैं?",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "क्या आप लहज़े को ज़्यादा आकर्षक और कम औपचारिक बना सकते हैं? मैं LinkedIn पर ज़्यादा बड़े दर्शकों को आकर्षित करना चाहता हूँ, खासकर युवा पेशेवरों और छात्रों को।",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "9": "कृपया सुनिश्चित करें कि खोज में दिखाई देने की संभावना बढ़ाने के लिए समरी में 'integrated marketing communications', 'brand management' और 'multichannel marketing' शब्द शामिल हों।",
+   "11": "दरअसल, मुझे लगता है कि लहज़े में बदलाव करने से पहले वाला संस्करण मेरी छवि से बेहतर मेल खाता था। क्या आप लहज़े में किसी भी बदलाव से पहले वाले मसौदे पर लौट सकते हैं, लेकिन समरी को तीन अनुच्छेदों तक सीमित रखें? इसके अलावा, क्या आप 'multichannel marketing' का भी ज़िक्र शामिल कर सकते हैं?"
+  },
+  "LIS-S10": {
+   "1": "नमस्ते! मुझे थोड़ी प्रेरणा चाहिए! क्या आप एक ऐसी महिला के बारे में कहानी लिख सकते हैं जो 40 की उम्र में अपने करियर में बहुत बड़ा बदलाव कर रही है? उसके पिता गैर-लाभकारी संस्था (non-profit) में काम करने की उसकी करियर बदलने की योजना की आलोचना करते हैं। उसकी सहेली को लगता है कि उसे अपने मौजूदा रास्ते पर ही बने रहना चाहिए, क्योंकि उसने उसमें इतना समय लगाया है।",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "5": "यह बहुत अच्छा है, बहुत-बहुत धन्यवाद! इससे मेरा मूड काफ़ी अच्छा हो गया। क्या आप मेरे अपने लिए नौकरी खोजने के कुछ विचारों में मेरी मदद कर सकते हैं? यह बहुत थकाऊ है। क्या नौकरी खोजने के कुछ रचनात्मक तरीके हैं? मैं नौकरी की वेबसाइटों से बहुत तंग आ चुकी हूँ।",
+   "6": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "9": "एक और छोटा-सा सवाल, विषय से हटकर: चार्जिंग केबल को सलीके से रखने का कोई आसान तरीका सुझाइए।",
+   "12": "बिलकुल सही। ठीक है, अब अपनी कहानी पर वापस चलते हैं। इसने सचमुच मुझे बेहतर महसूस कराया। क्या आप मुझे कहानी का सबसे ताज़ा संस्करण दे सकते हैं, लेकिन उसका शीर्षक बदल दीजिए? साथ ही, अपने पहले मसौदे का चौथा अनुच्छेद लेकर उससे दूसरे अनुच्छेद को बदल दीजिए। धन्यवाद!"
+  },
+  "LIS-S11": {
+   "1": "मैं अपने दोस्तों के साथ एक कराओके नाइट की योजना बना रहा हूँ। काफ़ी बच्चे भी होंगे और यह परिवार के लिए उपयुक्त (family friendly) आयोजन है। मुझे कभी ऐसा गाना मत दीजिए जो परिवार के लिए उपयुक्त न हो। कृपया 10-15 ऐसे गानों की सूची दीजिए जो परिवार के लिए उपयुक्त हों।",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "5": "ये मुझे पसंद आए, लेकिन मुझे लगता है कि इनसे बेहतर विकल्प भी मौजूद हैं। क्या आप मुझे 15 और गाने दे सकते हैं?"
+  },
+  "LIS-S12": {
+   "1": "क्या आप मेरे लिए प्रकृति पर तुकबंदी वाली एक कविता लिख सकते हैं?",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "6": "बढ़िया है, लेकिन क्या आप इसे तीन छंदों (stanzas) में लिख सकते हैं? और मैं देखना चाहता हूँ कि ABCC तुकबंदी (rhyming scheme) कैसी सुनाई देती है।"
+  },
+  "LIS-S13": {
+   "1": "मुझे अभी अपने ग्रेड मिले हैं और मैं उन्हें इस तरह व्यवस्थित करना चाहता हूँ कि सबसे ऊँचा ग्रेड पहले हो और सबसे कम अंत में। सभी उत्तर उचित शीर्षकों के साथ क्रमांकित सूचियों (numerical lists) में होने चाहिए।\n* ELA: 74\n* FACS: 52\n* Math: 83\n* PE: 86\n* Reading: 91\n* Science: 91\n* Social Studies: 91\n* Elementary Band: 100",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "6": "अब दूसरी तिमाही (second quarter) के ग्रेड जोड़िए।\n* ELA(2): 81\n* FACS(2): 90\n* Math(2): 83\n* PE(2): 86\n* Reading(2): 85\n* Science(2): 94\n* Social Studies(2): 91\n* Elementary Band(2): 50"
+  },
+  "LIS-S14": {
+   "1": "calculate नाम का एक Python फ़ंक्शन बनाइए जो एक पूर्णांक n लेता है और उसका फ़ैक्टोरियल लौटाता है; रिकर्सिव (recursive) तरीका इस्तेमाल कीजिए।",
+   "3": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "7": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "8": "calculate_v6 में use_cache पैरामीटर हटाइए और उसकी जगह डेकोरेटर-आधारित कैशिंग तंत्र (जैसे functools.lru_cache) का उपयोग कीजिए। पिछली सभी विशेषताएँ बनाए रखिए।",
+   "10": "अब सभी संस्करणों को मिलाकर calculate_final नाम का एक ही फ़ंक्शन बनाइए, जो:\nडिफ़ॉल्ट रूप से रिकर्शन का उपयोग करे\nपैरामीटर method: str = \"recursive\" के ज़रिए इटरेशन पर स्विच करने की सुविधा दे\nडेकोरेटर कैशिंग शामिल करे\nनेगेटिव/फ़्लोट मानों के लिए त्रुटि-प्रबंधन (error handling) रखे\nपूरा docstring शामिल करे"
+  },
+  "LIS-S15": {
+   "1": "विकासशील क्षेत्रों के लोगों के जीवन को बेहतर बनाने में मदद कर सकने वाले कुछ स्टार्टअप आइडिया क्या हैं? सुनिश्चित करें कि आपका उत्तर अंग्रेज़ी (English) में हो और केवल छोटे अक्षरों (lowercase) का उपयोग हो। आपके उत्तर में 20 से कम वाक्य होने चाहिए।",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "5": "आपके उत्तर में 'recycling' शब्द कम से कम 3 बार आना चाहिए।"
+  },
+  "LIS-S16": {
+   "1": "नमस्ते! मुझे लैपटॉप के प्रदर्शन (performance) और कीमत के मूल्यांकन के लिए एक रूब्रिक चाहिए। क्या आप मेरे लिए एक उदाहरण बना सकते हैं? मुझे कोई बुलेट पॉइंट, सूची या तालिका न दें। बस रूब्रिक को सादे अंग्रेज़ी (plain English) अनुच्छेदों में लिखें। मैं चाहता हूँ कि आपका उत्तर कम से कम 30 वाक्यों का हो।",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "5": "आपका उत्तर ठीक इस वाक्यांश पर समाप्त होना चाहिए: \"this comprehensive approach ensures a balanced evaluation of both performance and cost-effectiveness.\" इस वाक्यांश के बाद कोई और शब्द नहीं होने चाहिए।"
+  },
+  "LIS-S17": {
+   "1": "सॉफ़्टवेयर रखरखाव (maintenance) के दौरान सामने आने वाली प्रमुख बाधाओं की पहचान कीजिए। फिर इनमें से हर चुनौती से निपटने के लिए एक बहु-चरणीय रणनीति सुझाइए, जिसमें हर चरण से जुड़े संभावित जोखिम और लाभ भी शामिल हों।",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "5": "अब, कृपया अपनी बनाई बहु-चरणीय रणनीति की व्यावहारिकता का मूल्यांकन कीजिए, जिसमें मौजूदा तकनीकी क्षमताओं और सॉफ़्टवेयर विकास के माहौल में संसाधनों की सामान्य उपलब्धता को ध्यान में रखें। व्यावहारिकता और प्रभावशीलता बढ़ाने के लिए ज़रूरत हो तो रणनीति में बदलाव कीजिए।"
+  },
+  "LIS-S18": {
+   "1": "क्या आप डीप न्यूरल नेटवर्क की ट्रेनिंग में लर्निंग रेट शेड्यूल का कार्य समझा सकते हैं? कृपया संक्षिप्त उत्तर दें।",
+   "4": "एक छोटा-सा असंबंधित सवाल: घर के अंदर उगाए जाने वाले ऐसे एक पौधे का नाम बताएँ जिसे लोग आम तौर पर मेज़ पर रखते हैं।",
+   "5": "इसके बाद, तीन भागों वाला एक प्रश्न बनाइए: 1) डीप न्यूरल नेटवर्क की ट्रेनिंग में किस तरह के लर्निंग रेट शेड्यूल आम तौर पर इस्तेमाल होते हैं? 2) हर प्रकार प्रशिक्षण के अभिसरण (convergence) को कैसे प्रभावित करता है? 3) क्या आप ऐसी स्थिति का उदाहरण दे सकते हैं जहाँ सीखने की दर (learning rate) को गतिशील रूप से बदलना लाभकारी हो सकता है?"
+  },
+  "LIS-S19": {
+   "1": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "4": "कृपया अब Matthias Algiers के लिए पूरा रिज़्यूमे लिखिए, मेरे ऊपर दिए गए लेखन अनुरोध की सभी आवश्यकताओं का पालन करते हुए।"
+  },
+  "LIS-S20": {
+   "1": "बीच में एक छोटा-सा सवाल: पेपर क्लिप का रोज़मर्रा में इस्तेमाल करने का कोई एक तरीका क्या है?",
+   "4": "कृपया अब समय के साथ भाषा के विकसित होने के बारे में पूरा शोध प्रस्ताव तैयार कीजिए, मेरे ऊपर दिए गए लेखन अनुरोध की सभी आवश्यकताओं का पालन करते हुए।"
+  }
+ }
+}

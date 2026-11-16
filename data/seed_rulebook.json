@@ -1,6 +1,6 @@
 {
- "version": 4,
- "updated_at": "code-first audit 2026-11",
+ "version": 6,
+ "updated_at": "2026-11-15 20:56:43",
  "rules": [
   {
    "id": "LIS-S01-R1",
@@ -19,7 +19,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 4
   },
   {
    "id": "LIS-S01-R2",
@@ -38,7 +39,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 13
   },
   {
    "id": "LIS-S01-R3",
@@ -55,7 +57,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 13
   },
   {
    "id": "LIS-S01-R4",
@@ -72,7 +75,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 13
   },
   {
    "id": "LIS-S01-R5",
@@ -83,7 +87,10 @@
    "check": {
     "type": "contains",
     "terms": [
-     "Gold Cup"
+     [
+      "Gold Cup",
+      "गोल्ड कप"
+     ]
     ],
     "mode": "all"
    },
@@ -91,27 +98,26 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 13
   },
   {
    "id": "LIS-S01-R6",
    "conv_id": "LIS-S01",
    "name": "Online profile format",
-   "description": "Output is an online profile post, not an email. Checked as: has About Me and Achievements sections.",
+   "description": "Output is an online profile post, not an email. Checked as: has an About section and an Achievements section (English or Hindi headings).",
    "polarity": "must",
    "check": {
-    "type": "contains",
-    "terms": [
-     "about me",
-     "achievements"
-    ],
-    "mode": "all"
+    "type": "regex",
+    "pattern": "(?=[\\s\\S]*(about|अबाउट|परिचय|मेरे बारे))(?=[\\s\\S]*(achievements|अचीवमेंट|उपलब्धि))",
+    "expect": true
    },
    "from_turn": 12,
    "to_turn": 13,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S01-R7",
@@ -128,7 +134,8 @@
    "to_turn": 13,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S02-R1",
@@ -145,14 +152,15 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S02-R2",
    "conv_id": "LIS-S02",
    "name": "Accurate about its last message",
    "description": "User claims a typo starting with 'cru'. The reply must report what the previous message really began with, not invent or wrongly confirm a typo.",
-   "polarity": "must_not",
+   "polarity": "must",
    "check": {
     "type": "judge",
     "question": "Does the response accurately describe how the assistant's previous message actually began, without inventing or wrongly confirming a typo?",
@@ -162,7 +170,8 @@
    "to_turn": 6,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 6
   },
   {
    "id": "LIS-S02-R3",
@@ -179,7 +188,8 @@
    "to_turn": 9,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 4
   },
   {
    "id": "LIS-S03-R1",
@@ -196,7 +206,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 4
   },
   {
    "id": "LIS-S03-R2",
@@ -213,7 +224,8 @@
    "to_turn": 12,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S03-R3",
@@ -230,24 +242,26 @@
    "to_turn": 10,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S04-R1",
    "conv_id": "LIS-S04",
    "name": "Avoid banned words",
-   "description": "Never use the words mindful, heal, relaxation.",
+   "description": "Never use the words mindful, heal, relaxation (including mindfulness, healing, healed, and their Hindi transliterations).",
    "polarity": "must_not",
    "check": {
     "type": "regex",
-    "pattern": "\\b(mindful|heal|relaxation)\\b",
+    "pattern": "\\b(mindful(ness)?|heal(s|ed|er|ing)?|relaxation)\\b|माइंडफुल|हीलिंग|हील(?![ा-ौ])|रिलैक्सेशन",
     "expect": false
    },
    "from_turn": 1,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S05-R1",
@@ -264,7 +278,8 @@
    "to_turn": 13,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S05-R2",
@@ -281,7 +296,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 13
   },
   {
    "id": "LIS-S06-R1",
@@ -291,14 +307,15 @@
    "polarity": "must_not",
    "check": {
     "type": "regex",
-    "pattern": "^\\W*(core |key |technical )?skills\\W*$",
+    "pattern": "^\\W*(core |key |technical )?skills\\W*$|^\\W*(मुख्य |तकनीकी )?(कौशल|स्किल्स)\\W*$",
     "expect": false
    },
    "from_turn": 8,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 8
   },
   {
    "id": "LIS-S06-R2",
@@ -315,7 +332,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 9
   },
   {
    "id": "LIS-S06-R3",
@@ -332,7 +350,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S07-R1",
@@ -343,13 +362,15 @@
    "check": {
     "type": "paragraph_count",
     "max": 3,
-    "min_words": 15
+    "min_words": 15,
+    "body": true
    },
    "from_turn": 8,
    "to_turn": 11,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 8
   },
   {
    "id": "LIS-S07-R2",
@@ -366,7 +387,8 @@
    "to_turn": 11,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 8
   },
   {
    "id": "LIS-S07-R3",
@@ -376,14 +398,15 @@
    "polarity": "must_not",
    "check": {
     "type": "regex",
-    "pattern": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2}|\\d{1,2}[/.-]\\d{1,2}[/.-]\\d{2,4}",
+    "pattern": "(January|February|March|April|May|June|July|August|September|October|November|December|जनवरी|फ़रवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|सितम्बर|अक्टूबर|नवंबर|नवम्बर|दिसंबर|दिसम्बर)\\s+\\d{1,2}|\\d{1,2}\\s+(January|February|March|April|May|June|July|August|September|October|November|December|जनवरी|फ़रवरी|फरवरी|मार्च|अप्रैल|मई|जून|जुलाई|अगस्त|सितंबर|सितम्बर|अक्टूबर|नवंबर|नवम्बर|दिसंबर|दिसम्बर)|\\d{1,2}[/.-]\\d{1,2}[/.-]\\d{2,4}",
     "expect": false
    },
    "from_turn": 9,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 9
   },
   {
    "id": "LIS-S07-R4",
@@ -400,7 +423,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S08-R1",
@@ -417,7 +441,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 7
   },
   {
    "id": "LIS-S08-R2",
@@ -436,7 +461,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S08-R3",
@@ -453,7 +479,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S08-R4",
@@ -470,7 +497,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 8
   },
   {
    "id": "LIS-S09-R1",
@@ -491,7 +519,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 9
   },
   {
    "id": "LIS-S09-R2",
@@ -502,13 +531,15 @@
    "check": {
     "type": "paragraph_count",
     "min": 3,
-    "max": 3
+    "max": 3,
+    "body": true
    },
    "from_turn": 8,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S09-R3",
@@ -518,13 +549,15 @@
    "polarity": "must",
    "check": {
     "type": "max_words_per_paragraph",
-    "max": 70
+    "max": 70,
+    "body": true
    },
    "from_turn": 8,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 8
   },
   {
    "id": "LIS-S10-R1",
@@ -534,14 +567,15 @@
    "polarity": "must_not",
    "check": {
     "type": "regex",
-    "pattern": "once upon a time",
+    "pattern": "once upon a time|एक बार की बात है|एक समय की बात है",
     "expect": false
    },
    "from_turn": 2,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S10-R2",
@@ -552,7 +586,12 @@
    "check": {
     "type": "contains",
     "terms": [
-     "LGBTQ"
+     [
+      "LGBTQ",
+      "LGBT",
+      "एलजीबीटीक्यू",
+      "एलजीबीटी"
+     ]
     ],
     "mode": "all"
    },
@@ -560,7 +599,8 @@
    "to_turn": 12,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 4
   },
   {
    "id": "LIS-S10-R3",
@@ -577,7 +617,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S11-R1",
@@ -594,7 +635,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S11-R2",
@@ -611,7 +653,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 3
   },
   {
    "id": "LIS-S11-R3",
@@ -629,7 +672,8 @@
    "to_turn": 1,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S12-R1",
@@ -646,7 +690,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S12-R2",
@@ -663,25 +708,25 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S12-R3",
    "conv_id": "LIS-S12",
    "name": "Three stanzas",
-   "description": "Final poem has three stanzas. Checked as: exactly 3 blocks of 2+ lines (a one-line title is ignored).",
+   "description": "Final poem has exactly three stanzas.",
    "polarity": "must",
    "check": {
-    "type": "paragraph_count",
-    "min": 3,
-    "max": 3,
-    "min_lines": 2
+    "type": "judge",
+    "question": "Does the final poem in the reply have exactly three stanzas?"
    },
    "from_turn": 6,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 6
   },
   {
    "id": "LIS-S12-R4",
@@ -698,7 +743,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 6
   },
   {
    "id": "LIS-S13-R1",
@@ -715,7 +761,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S13-R2",
@@ -732,24 +779,26 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S13-R3",
    "conv_id": "LIS-S13",
    "name": "Titles are not ranges",
-   "description": "Titles must not be the score ranges.",
+   "description": "Titles must not be the score ranges. Checked as: no heading line contains a requested range such as 100-90.",
    "polarity": "must_not",
    "check": {
     "type": "regex",
-    "pattern": "^\\W*(#+\\s*)?\\**\\s*(100\\s*[-–]\\s*90|89\\s*[-–]\\s*80|79\\s*[-–]\\s*70|69\\s*[-–]\\s*65)",
+    "pattern": "^(?![ \\t]*[-*•][ \\t])[ \\t]*(?:#{1,6}[ \\t]*)?\\**[^\\n|]{0,40}?(?:100\\s*[-–]\\s*90|89\\s*[-–]\\s*80|79\\s*[-–]\\s*70|69\\s*[-–]\\s*65|64\\s+or\\s+below)[^\\n]{0,20}$",
     "expect": false
    },
    "from_turn": 5,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S13-R4",
@@ -759,26 +808,60 @@
    "polarity": "must",
    "check": {
     "type": "contains",
+    "mode": "all",
     "terms": [
-     "ELA",
-     "FACS",
-     "Math",
-     "PE",
-     "Reading",
-     "Science",
-     "Social Studies",
-     "Elementary Band",
+     [
+      "ELA",
+      "इंग्लिश लैंग्वेज आर्ट्स",
+      "अंग्रेज़ी भाषा"
+     ],
+     [
+      "FACS",
+      "एफएसीएस"
+     ],
+     [
+      "Math",
+      "गणित",
+      "मैथ"
+     ],
+     [
+      "PE",
+      "शारीरिक शिक्षा",
+      "पीई"
+     ],
+     [
+      "Reading",
+      "पठन",
+      "पढ़ना",
+      "रीडिंग"
+     ],
+     [
+      "Science",
+      "विज्ञान",
+      "साइंस"
+     ],
+     [
+      "Social Studies",
+      "सामाजिक अध्ययन",
+      "सोशल स्टडीज"
+     ],
+     [
+      "Elementary Band",
+      "एलिमेंट्री बैंड",
+      "एलीमेंट्री बैंड",
+      "प्राथमिक बैंड"
+     ],
      "81",
      "94",
      "50"
-    ],
-    "mode": "all"
+    ]
    },
    "from_turn": 6,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 6
   },
   {
    "id": "LIS-S14-R1",
@@ -787,73 +870,70 @@
    "description": "Defines calculate_final.",
    "polarity": "must",
    "check": {
-    "type": "contains",
-    "terms": [
-     "def calculate_final"
-    ],
-    "mode": "all"
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "defined"
    },
    "from_turn": 10,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S14-R2",
    "conv_id": "LIS-S14",
    "name": "Decorator caching",
-   "description": "Uses functools lru_cache.",
+   "description": "Uses decorator-based caching (lru_cache or similar).",
    "polarity": "must",
    "check": {
-    "type": "contains",
-    "terms": [
-     "lru_cache"
-    ],
-    "mode": "all"
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "caching"
    },
    "from_turn": 10,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S14-R3",
    "conv_id": "LIS-S14",
    "name": "Error handling",
-   "description": "ValueError for negatives; floats converted.",
+   "description": "Raises ValueError (negative input).",
    "polarity": "must",
    "check": {
-    "type": "contains",
-    "terms": [
-     "ValueError",
-     "int("
-    ],
-    "mode": "all"
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "value_error"
    },
    "from_turn": 10,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S14-R4",
    "conv_id": "LIS-S14",
    "name": "Method switch",
-   "description": "Has a method parameter defaulting to recursive.",
+   "description": "Has a method parameter defaulting to \"recursive\".",
    "polarity": "must",
    "check": {
-    "type": "regex",
-    "pattern": "def\\s+calculate_final\\s*\\([^)]*method\\s*(:\\s*str)?\\s*=\\s*[\\\"']recursive[\\\"']",
-    "expect": true
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "method_default_recursive"
    },
    "from_turn": 10,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S14-R5",
@@ -862,15 +942,16 @@
    "description": "Includes a docstring.",
    "polarity": "must",
    "check": {
-    "type": "regex",
-    "pattern": "\"\"\"|\\'\\'\\'",
-    "expect": true
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "docstring"
    },
    "from_turn": 10,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 10
   },
   {
    "id": "LIS-S15-R1",
@@ -885,7 +966,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "english_only",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S15-R2",
@@ -901,7 +983,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S15-R3",
@@ -918,7 +1001,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 3
   },
   {
    "id": "LIS-S15-R4",
@@ -928,14 +1012,15 @@
    "polarity": "must",
    "check": {
     "type": "regex_count",
-    "pattern": "recycling",
+    "pattern": "recycling|रीसाइक्लिंग|रिसाइक्लिंग|पुनर्चक्रण",
     "min": 3
    },
    "from_turn": 5,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S16-R1",
@@ -952,7 +1037,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S16-R2",
@@ -968,7 +1054,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S16-R3",
@@ -989,7 +1076,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 3
   },
   {
    "id": "LIS-S16-R4",
@@ -1005,7 +1093,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S17-R1",
@@ -1022,7 +1111,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S17-R2",
@@ -1039,7 +1129,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S18-R1",
@@ -1055,7 +1146,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S18-R2",
@@ -1072,7 +1164,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S19-R1",
@@ -1089,7 +1182,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "english_only",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S19-R2",
@@ -1106,18 +1200,24 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S19-R3",
    "conv_id": "LIS-S19",
    "name": "For Matthias Algiers",
-   "description": "Resume is for Matthias Algiers.",
+   "description": "Resume is for Matthias Algiers (the name in English or Devanagari).",
    "polarity": "must",
    "check": {
     "type": "contains",
     "terms": [
-     "Matthias Algiers"
+     [
+      "Matthias",
+      "मैथियास",
+      "मैथायस",
+      "मथायस"
+     ]
     ],
     "mode": "all"
    },
@@ -1125,7 +1225,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S20-R1",
@@ -1142,7 +1243,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S20-R2",
@@ -1159,7 +1261,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "english_only"
+   "language_scope": "english_only",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S20-R3",
@@ -1175,7 +1278,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 2
   },
   {
    "id": "LIS-S06-R4",
@@ -1192,7 +1296,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S07-R5",
@@ -1209,24 +1314,26 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 11
   },
   {
    "id": "LIS-S08-R5",
    "conv_id": "LIS-S08",
    "name": "Bold headings, no code blocks",
-   "description": "Section headings are bold, in normal text. Checked as: the Historical Significance heading is in **bold**.",
+   "description": "Section headings are bold (or markdown headings), in normal text. Checked as: at least two stand-alone bold or markdown headings, in any language.",
    "polarity": "must",
    "check": {
-    "type": "regex",
-    "pattern": "\\*\\*[^*\\n]*Historical Significance[^*\\n]*\\*\\*",
-    "expect": true
+    "type": "regex_count",
+    "pattern": "^\\s*(#{1,6}\\s+\\S.*|\\*\\*[^*\\n]{2,80}\\*\\*:?\\s*)$",
+    "min": 2
    },
    "from_turn": 7,
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 7
   },
   {
    "id": "LIS-S10-R4",
@@ -1243,7 +1350,8 @@
    "to_turn": null,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S11-R4",
@@ -1260,7 +1368,8 @@
    "to_turn": 5,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 5
   },
   {
    "id": "LIS-S17-R3",
@@ -1277,7 +1386,8 @@
    "to_turn": 3,
    "enabled": true,
    "source": "reviewed",
-   "language_scope": "any"
+   "language_scope": "any",
+   "stated_turn": 3
   },
   {
    "id": "LIS-S15-R5",
@@ -1293,349 +1403,8 @@
    "to_turn": null,
    "language_scope": "any",
    "enabled": true,
-   "source": "reviewed"
-  },
-  {
-   "id": "LIS-X01-R1",
-   "conv_id": "LIS-X01",
-   "name": "Exactly three '- ' bullets",
-   "description": "Rule given in turn 1 (must): Always format every answer as exactly three bullet points, each line starting with '- '. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex_count",
-    "pattern": "^\\s*-\\s",
-    "min": 3,
-    "max": 3
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X02-R1",
-   "conv_id": "LIS-X02",
-   "name": "No bullets or lists",
-   "description": "Rule given in turn 1 (must not): Never use bullet points, numbered lists, or any list formatting; write in plain prose. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "^\\s*([-*•]|\\d+[.)])\\s",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X03-R1",
-   "conv_id": "LIS-X03",
-   "name": "At least two exclamation marks",
-   "description": "Rule given in turn 1 (must): Every reply must contain at least two exclamation marks (!). Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex_count",
-    "pattern": "!",
-    "min": 2
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X04-R1",
-   "conv_id": "LIS-X04",
-   "name": "No exclamation marks",
-   "description": "Rule given in turn 1 (must not): Never use an exclamation mark (!) in any reply. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "!",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X05-R1",
-   "conv_id": "LIS-X05",
-   "name": "Key phrase in **bold**",
-   "description": "Rule given in turn 1 (must): In every reply, put the single most important phrase in **bold** using double asterisks. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex_count",
-    "pattern": "\\*\\*[^*\\n]+\\*\\*",
-    "min": 1
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X06-R1",
-   "conv_id": "LIS-X06",
-   "name": "No bold or markdown",
-   "description": "Rule given in turn 1 (must not): Never use bold text or any markdown formatting (no ** and no # headings). Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "\\*\\*|^\\s*#{1,6}\\s",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X07-R1",
-   "conv_id": "LIS-X07",
-   "name": "Ends with a question",
-   "description": "Rule given in turn 1 (must): End every reply with a question addressed to me. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex",
-    "pattern": "[?？]\\s*[\\\"”’)»]*\\s*\\Z",
-    "expect": true
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X08-R1",
-   "conv_id": "LIS-X08",
-   "name": "No questions",
-   "description": "Rule given in turn 1 (must not): Never ask me a question; do not use question marks in any reply. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "[?？]",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X09-R1",
-   "conv_id": "LIS-X09",
-   "name": "Includes ✅",
-   "description": "Rule given in turn 1 (must): Include the ✅ emoji at least once in every reply. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "contains",
-    "terms": [
-     "✅"
-    ],
-    "mode": "all"
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X10-R1",
-   "conv_id": "LIS-X10",
-   "name": "No emoji",
-   "description": "Rule given in turn 1 (must not): Never use any emoji in any reply. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "[☀-➿\\U0001F300-\\U0001FAFF]",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X11-R1",
-   "conv_id": "LIS-X11",
-   "name": "Starts with a '# ' heading",
-   "description": "Rule given in turn 1 (must): Start every reply with a heading line that begins with '# '. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex",
-    "pattern": "\\A\\s*#\\s\\S",
-    "expect": true
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X12-R1",
-   "conv_id": "LIS-X12",
-   "name": "No headings",
-   "description": "Rule given in turn 1 (must not): Never use headings; do not start any line with '#'. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "^\\s*#",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X13-R1",
-   "conv_id": "LIS-X13",
-   "name": "At least one parenthetical remark",
-   "description": "Rule given in turn 1 (must): Every reply must include at least one remark in parentheses. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex",
-    "pattern": "\\([^)\\n]+\\)",
-    "expect": true
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X14-R1",
-   "conv_id": "LIS-X14",
-   "name": "No parentheses",
-   "description": "Rule given in turn 1 (must not): Never use parentheses in any reply. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "[()（）]",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X15-R1",
-   "conv_id": "LIS-X15",
-   "name": "Exactly two paragraphs",
-   "description": "Rule given in turn 1 (must): Every reply must be exactly two paragraphs separated by one blank line. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "paragraph_count",
-    "min": 2,
-    "max": 2
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X16-R1",
-   "conv_id": "LIS-X16",
-   "name": "Single paragraph only",
-   "description": "Rule given in turn 1 (must not): Never split a reply into more than one paragraph; no blank lines. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "paragraph_count",
-    "max": 1
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X17-R1",
-   "conv_id": "LIS-X17",
-   "name": "Exactly two hashtags",
-   "description": "Rule given in turn 1 (must): End every reply with exactly two hashtags. Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "regex_count",
-    "pattern": "#\\S+",
-    "min": 2,
-    "max": 2
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X18-R1",
-   "conv_id": "LIS-X18",
-   "name": "No hashtags",
-   "description": "Rule given in turn 1 (must not): Never use hashtags in any reply. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "regex",
-    "pattern": "#\\S",
-    "expect": false
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X19-R1",
-   "conv_id": "LIS-X19",
-   "name": "Ends with the exact closing sentence",
-   "description": "Rule given in turn 1 (must): End every reply with the exact sentence: \"Let me know if you need anything else.\" Must still hold at turn 5.",
-   "polarity": "must",
-   "check": {
-    "type": "ends_with",
-    "phrase": "Let me know if you need anything else."
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
-  },
-  {
-   "id": "LIS-X20-R1",
-   "conv_id": "LIS-X20",
-   "name": "No offers of further help",
-   "description": "Rule given in turn 1 (must not): Never offer further help or ask whether I need anything else. Must still hold at turn 5.",
-   "polarity": "must_not",
-   "check": {
-    "type": "judge",
-    "context": "reply",
-    "question": "Does the reply avoid offering further help or asking whether the user needs anything else?"
-   },
-   "from_turn": 1,
-   "to_turn": null,
-   "language_scope": "any",
-   "enabled": true,
-   "source": "curated"
+   "source": "reviewed",
+   "stated_turn": 1
   },
   {
    "id": "LIS-S03-R5",
@@ -1652,7 +1421,8 @@
    "to_turn": 12,
    "language_scope": "any",
    "enabled": true,
-   "source": "reviewed"
+   "source": "reviewed",
+   "stated_turn": 12
   },
   {
    "id": "LIS-S07-R6",
@@ -1669,7 +1439,8 @@
    "to_turn": null,
    "language_scope": "any",
    "enabled": true,
-   "source": "reviewed"
+   "source": "reviewed",
+   "stated_turn": 9
   },
   {
    "id": "LIS-S13-R5",
@@ -1686,7 +1457,271 @@
    "to_turn": null,
    "language_scope": "any",
    "enabled": true,
-   "source": "reviewed"
+   "source": "reviewed",
+   "stated_turn": 1
+  },
+  {
+   "id": "LIS-S01-R8",
+   "conv_id": "LIS-S01",
+   "name": "Statistics kept",
+   "description": "Profile keeps the 68% free-throw and 67% inside-the-arc statistics.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "(?=[\\s\\S]*68\\s?%)(?=[\\s\\S]*67\\s?%)",
+    "expect": true
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 10
+  },
+  {
+   "id": "LIS-S01-R9",
+   "conv_id": "LIS-S01",
+   "name": "MVP achievement kept",
+   "description": "Keeps the district quarter-finals MVP achievement from turn 4.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "MVP|एमवीपी",
+    "expect": true
+   },
+   "from_turn": 12,
+   "to_turn": null,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 4
+  },
+  {
+   "id": "LIS-S01-R10",
+   "conv_id": "LIS-S01",
+   "name": "References section",
+   "description": "Has a references section at the bottom.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "reference|संदर्भ",
+    "expect": true
+   },
+   "from_turn": 13,
+   "to_turn": null,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 13
+  },
+  {
+   "id": "LIS-S03-R6",
+   "conv_id": "LIS-S03",
+   "name": "Book table columns",
+   "description": "Book table has author, published date and copies sold columns. Checked on the table header row.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "^\\s*\\|(?=.*(author|लेखक))(?=.*(date|published|year|प्रकाशित|वर्ष))(?=.*(copies|sold|कॉपी|बिक्री)).*\\|\\s*$",
+    "expect": true
+   },
+   "from_turn": 12,
+   "to_turn": 12,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 12
+  },
+  {
+   "id": "LIS-S03-R7",
+   "conv_id": "LIS-S03",
+   "name": "Plan covers water, diet, fruits",
+   "description": "4-month plan includes water intake, diet and fruits.",
+   "polarity": "must",
+   "check": {
+    "type": "regex",
+    "pattern": "(?=[\\s\\S]*(water|hydrat|पानी|जल))(?=[\\s\\S]*(diet|nutrition|meal|आहार|भोजन))(?=[\\s\\S]*(fruit|फल))",
+    "expect": true
+   },
+   "from_turn": 10,
+   "to_turn": 10,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 10
+  },
+  {
+   "id": "LIS-S07-R7",
+   "conv_id": "LIS-S07",
+   "name": "Personal story kept",
+   "description": "Letter includes a brief personal story about the influencer's positive impact on the community.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the letter include a brief personal story about how the influencer's work positively impacted the community?"
+   },
+   "from_turn": 11,
+   "to_turn": 11,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 5
+  },
+  {
+   "id": "LIS-S07-R8",
+   "conv_id": "LIS-S07",
+   "name": "Formal yet warm tone",
+   "description": "Letter is formal and warm.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is the letter's tone both formal and warm?"
+   },
+   "from_turn": 11,
+   "to_turn": 11,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 8
+  },
+  {
+   "id": "LIS-S08-R6",
+   "conv_id": "LIS-S08",
+   "name": "Modern design elements",
+   "description": "Email mentions the table has modern design elements, unusual for its period.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the email mention that the table has some modern design elements, which is unusual for an 18th-century piece?"
+   },
+   "from_turn": 12,
+   "to_turn": 12,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 4
+  },
+  {
+   "id": "LIS-S08-R7",
+   "conv_id": "LIS-S08",
+   "name": "Untouched state",
+   "description": "Email says the table is untouched, perfectly preserved and authentic, with no modern alterations.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Does the email state that the table is untouched and perfectly preserved, an authentic 18th-century example without modern alterations?"
+   },
+   "from_turn": 12,
+   "to_turn": 12,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 5
+  },
+  {
+   "id": "LIS-S09-R4",
+   "conv_id": "LIS-S09",
+   "name": "Paragraph topics",
+   "description": "The three paragraphs cover the academic role, the small-business work, and the publications and research.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Do the three paragraphs cover (1) the academic role, (2) work with small businesses, and (3) publications and research?"
+   },
+   "from_turn": 11,
+   "to_turn": 11,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 8
+  },
+  {
+   "id": "LIS-S13-R6",
+   "conv_id": "LIS-S13",
+   "name": "Grouped by requested ranges",
+   "description": "Grades are grouped into lists for 100-90, 89-80, 79-70, 69-65 and 64 or below.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Are the grades grouped into lists for the ranges 100-90, 89-80, 79-70, 69-65 and 64 or below?"
+   },
+   "from_turn": 5,
+   "to_turn": 6,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 5
+  },
+  {
+   "id": "LIS-S14-R6",
+   "conv_id": "LIS-S14",
+   "name": "Iteration branch",
+   "description": "Final function can iterate (contains a loop).",
+   "polarity": "must",
+   "check": {
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "loop"
+   },
+   "from_turn": 10,
+   "to_turn": 10,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 10
+  },
+  {
+   "id": "LIS-S14-R7",
+   "conv_id": "LIS-S14",
+   "name": "Recursion",
+   "description": "Final function is recursive (calls itself).",
+   "polarity": "must",
+   "check": {
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "recursion"
+   },
+   "from_turn": 10,
+   "to_turn": 10,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 10
+  },
+  {
+   "id": "LIS-S14-R8",
+   "conv_id": "LIS-S14",
+   "name": "Floats converted",
+   "description": "Final function converts floats (int() or an isinstance float test).",
+   "polarity": "must",
+   "check": {
+    "type": "python_function",
+    "function": "calculate_final",
+    "require": "float_handling"
+   },
+   "from_turn": 10,
+   "to_turn": 10,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 10
+  },
+  {
+   "id": "LIS-S20-R4",
+   "conv_id": "LIS-S20",
+   "name": "About language evolution",
+   "description": "Proposal is about how language evolves over time.",
+   "polarity": "must",
+   "check": {
+    "type": "judge",
+    "question": "Is the proposal about how language evolves over time?"
+   },
+   "from_turn": 4,
+   "to_turn": 4,
+   "enabled": true,
+   "source": "audit 2026-11-15",
+   "language_scope": "any",
+   "stated_turn": 2
   }
  ]
 }

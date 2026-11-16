@@ -1,5 +1,5 @@
 #!/bin/bash
-# Llama-3.2-3B on the ORIGINAL 20 conversations (EN, EN_REP, MIX_CLEAN). Run on a Sol GPU node.
+# Llama-3.2-3B on the ORIGINAL 20 conversations (EN, MIX_CLEAN). Run on a Sol GPU node.
 #
 #   read -rs HF_TOKEN; export HF_TOKEN          # type the token, nothing is shown
 #   nohup bash run_llama.sh > /scratch/$USER/mcd_runs/llama.log 2>&1 &
@@ -12,7 +12,7 @@ MODEL="meta-llama/Llama-3.2-3B-Instruct"
 WORKSPACE="/scratch/$USER/mcd_runs/main"          # same workspace as Qwen; results are kept per model
 LOGDIR="/scratch/$USER/mcd_runs"
 CONVS=$(printf "LIS-S%02d " $(seq 1 20))
-CONDS="EN EN_REP MIX_CLEAN"
+CONDS="EN MIX_CLEAN"
 
 if [ -z "${HF_TOKEN:-}" ]; then echo "!! HF_TOKEN is not set. Run:  read -rs HF_TOKEN; export HF_TOKEN"; exit 1; fi
 

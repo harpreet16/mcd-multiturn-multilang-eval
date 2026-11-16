@@ -2,8 +2,10 @@
 
 Every condition is a function (conversation, intro_turns) -> list of Turns.
 English and Hindi texts are aligned by turn number, so a condition simply decides,
-turn by turn, which language to use. Hindi is only used where the dataset has a
-human-written Hindi turn; nothing is machine-translated.
+turn by turn, which language to use. Hindi comes from the dataset's human-written
+turns where they exist; the remaining turns of the original conversations were
+translated by Claude (data/hindi_translations.json, listed in Conversation.translated)
+and are unverified until a native speaker has checked them.
 
 intro_turns is the set of turn numbers where some rule of that conversation
 starts (from the rulebook). MIX_CLEAN uses it to keep rule-introducing turns in
@@ -52,6 +54,20 @@ def hindi_all(conv, intro_turns):
     return list(conv.hindi) or None
 
 
+def hindi_heavy(conv, intro_turns):
+    """English -> Hindi -> English with the most Hindi in the middle (needs a full Hindi version).
+
+    Turns that state a rule and the final turn stay English; every other turn is Hindi.
+    Same idea as MIX_CLEAN, but the rule has to survive the longest possible stretch of
+    Hindi before it is tested, and the conversation ends back in English.
+    """
+    if not conv.hindi:
+        return None
+    last = len(conv.english) - 1
+    return [conv.english[i] if (conv.english[i].n in intro_turns or i == last) else conv.hindi[i]
+            for i in range(len(conv.english))]
+
+
 def hindi_en_hi(conv, intro_turns):
     """Reverse direction: Hindi, English in the middle, Hindi at the end."""
     if not conv.hindi:
@@ -62,13 +78,13 @@ def hindi_en_hi(conv, intro_turns):
 
 CONDITIONS = {
     "EN":        ("All English baseline", all_english),
-    "EN_REP":    ("Replicate of EN (noise control: same prompts, run again)", all_english),
     "MIX":       ("Authored English + Hindi (some rules introduced in Hindi)", authored_mix),
     "MIX_CLEAN": ("Authored mix, rule-introducing turns kept in English (primary memory test)", mix_clean),
     "HI_EARLY":  ("Hindi only in the first half", hindi_early),
     "HI_LATE":   ("Hindi only in the second half", hindi_late),
-    "HI_ALL":    ("Control: all turns Hindi (curated conversations only)", hindi_all),
-    "HI_EN_HI":  ("Reverse: Hindi, English middle, Hindi (curated conversations only)", hindi_en_hi),
+    "HI_HEAVY":  ("Rule-stating turns and the final turn in English, every other turn in Hindi (primary switch test)", hindi_heavy),
+    "HI_ALL":    ("Control: all turns Hindi", hindi_all),
+    "HI_EN_HI":  ("Reverse: Hindi, English middle, Hindi (needs a full Hindi version)", hindi_en_hi),
 }
 DEFAULT_CONDITIONS = ["EN", "MIX", "MIX_CLEAN"]
 

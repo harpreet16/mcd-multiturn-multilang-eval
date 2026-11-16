@@ -239,7 +239,7 @@ function poll() {
 // ---------------------------------------------------------------- results
 async function results() {
   const group = sessionStorage.getItem("group") || "all";
-  const [{ summary, grid, headroom, quality }, rb] = await Promise.all([api("/api/results?group=" + group), api("/api/rulebook")]);
+  const [{ summary, grid, headroom, quality, leakage }, rb] = await Promise.all([api("/api/results?group=" + group), api("/api/rulebook")]);
   const models = Object.keys(summary);
   if (!models.length) { $("#view").innerHTML = '<div class="card">No graded results yet. Run a model, then grade.</div>'; return; }
   $("#banner").hidden = !models.includes("mock");
@@ -248,16 +248,14 @@ async function results() {
   const byRule = Object.fromEntries(rb.rules.map((r) => [r.id, r]));
   const convOf = (id) => byRule[id]?.conv_id || "";
 
-  const picker = `<div class="card"><label>Conversations <select id="group">
-    ${[["all", "All"], ["S", "Original dataset (LIS-S, 20)"], ["X", "Curated matched pairs (LIS-X, 20)"]].map(([v, t]) =>
-      `<option value="${v}" ${v === group ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>`;
+  const picker = "";
   const labels = { headroom: ["ok", "usable: room to see forgetting"], ceiling: ["warn", "ceiling: almost always follows the rule in English, a drop cannot show"],
                    floor: ["bad", "floor: rarely follows the rule even in English"] };
   const headroomCard = `<div class="card"><h2>English baseline headroom</h2>
     <p class="muted">Pass rate on the all-English runs only (independent of any switch effect). Use it to decide which models and groups can show forgetting.</p>
     <table><tr><th>Model</th><th>Group</th><th>Rules</th><th>English pass</th><th>Verdict</th></tr>
     ${Object.entries(headroom || {}).flatMap(([m, groups]) => Object.entries(groups).map(([g, h]) => `<tr><td>${esc(m)}</td>
-      <td>${g === "X" ? "Curated pairs (X)" : "Original (S)"}</td><td>${h.rules}</td><td>${pct(h.pass)}</td>
+      <td>Original (S)</td><td>${h.rules}</td><td>${pct(h.pass)}</td>
       <td><span class="chip ${labels[h.status][0]}">${labels[h.status][1]}</span></td></tr>`)).join("") || '<tr><td colspan="5" class="muted">Run and grade the EN condition first.</td></tr>'}
     </table></div>`;
   const verdicts = { ok: ["ok", "OK"], warning: ["warn", "Warning"], do_not_interpret: ["bad", "Do not interpret"] };
@@ -270,16 +268,23 @@ async function results() {
     ${qrows.map(({ m, c, q }) => `<tr><td>${esc(m)}</td><td>${esc(c)}</td><td>${q.rules}</td><td>${pct(q.share)}</td>
       <td class="muted">${esc(Object.entries(q.reasons).map(([k, v]) => k + ": " + v).join(", ") || "none")}</td>
       <td><span class="chip ${verdicts[q.verdict][0]}">${verdicts[q.verdict][1]}</span></td></tr>`).join("")}</table></div>`;
-  $("#view").innerHTML = picker + qualityCard + headroomCard + models.map((m) => {
-    const costs = summary[m].switch_costs, conds = summary[m].conditions;
-    return `<div class="card"><h2>${esc(m)}</h2>
-      ${Object.keys(costs).length ? `<div class="grid">${Object.entries(costs).map(([c, sc]) => sc ? `<div>
+  const lk = leakage || {}, lkRows = Object.entries(lk).flatMap(([m, conds]) => Object.entries(conds).filter(([, v]) => v.hi_turns || v.en_turns_hindi_reply).map(([c, v]) => ({ m, c, v })));
+  const leakCard = lkRows.length ? `<div class="card"><h2>Language leakage</h2>
+    <p class="muted">How often the reply is in a different language from the question it answers. English-only conversations are the control (0% means no leakage without Hindi in the conversation).</p>
+    <table><tr><th>Model</th><th>Condition</th><th>English questions answered in Hindi</th><th>Hindi questions answered in English</th></tr>
+    ${lkRows.map(({ m, c, v }) => `<tr><td>${esc(m)}</td><td>${esc(c)}</td><td>${v.en_turns_hindi_reply} of ${v.en_turns} (${pct(v.en_turns ? v.en_turns_hindi_reply / v.en_turns : null)})</td>
+      <td>${v.hi_turns ? `${v.hi_turns_english_reply} of ${v.hi_turns} (${pct(v.hi_turns_english_reply / v.hi_turns)})` : "–"}</td></tr>`).join("")}</table></div>` : "";
+  $("#view").innerHTML = picker + qualityCard + headroomCard + leakCard + models.map((m) => {
+    const conds = summary[m].conditions;
+    const costGrid = (costs, title) => Object.keys(costs).length ? `<h3 style="margin:10px 0 4px">${title}</h3><div class="grid">${Object.entries(costs).map(([c, sc]) => sc ? `<div>
         <div class="stat">${(sc.diff * 100).toFixed(1)} pts</div>
-        <div class="muted">Switch cost EN − ${esc(c)} (final pass)<br>95% CI ${(sc.lo * 100).toFixed(1)} to ${(sc.hi * 100).toFixed(1)} · ${sc.pairs} rule pairs · ${sc.conversations} conversations</div>
+        <div class="muted">Switch cost EN − ${esc(c)}<br>95% CI ${(sc.lo * 100).toFixed(1)} to ${(sc.hi * 100).toFixed(1)} · p = ${sc.p == null ? "n/a" : sc.p.toFixed(3)} · ${sc.pairs} rule pairs · ${sc.conversations} conversations</div>
         ${sc.too_few ? `<div><span class="chip warn">Only ${sc.conversations} conversations: the interval is not trustworthy. Treat this as a pipeline check, not a result.</span></div>` : ""}
-        ${sc.dropped_pairs ? `<div class="muted">${sc.dropped_pairs} pair(s) dropped (ungradable). Sensitivity: ${(sc.if_dropped_pass * 100).toFixed(1)} to ${(sc.if_dropped_fail * 100).toFixed(1)} pts if counted as pass / fail.</div>` : ""}</div>` : "").join("")}</div>
-        <div class="muted">Positive = the model keeps fewer rules than in English. If the interval includes 0, there is no clear effect. MIX_CLEAN keeps rule-introducing turns in English, so it is the cleaner memory test.</div>`
-        : '<div class="muted">Switch cost needs an EN run plus at least one other condition.</div>'}
+        ${sc.dropped_pairs ? `<div class="muted">${sc.dropped_pairs} pair(s) dropped (ungradable). Sensitivity: ${(sc.if_dropped_pass * 100).toFixed(1)} to ${(sc.if_dropped_fail * 100).toFixed(1)} pts if counted as pass / fail.</div>` : ""}</div>` : "").join("")}</div>` : "";
+    return `<div class="card"><h2>${esc(m)}</h2>
+      ${costGrid(summary[m].switch_costs, "Primary: rules with at least one Hindi turn between the statement and the test")}
+      ${costGrid(summary[m].switch_costs_all, "Secondary: all rules (includes rules with no Hindi turn between statement and test, which the language switch cannot affect)")}
+      <div class="muted">Positive = the model keeps fewer rules than in English. p is a two-sided test over whole conversations. If the interval includes 0 and p is large, no effect was detected; the interval shows how big a hidden effect could be.</div>
       <table style="margin-top:12px"><tr><th>Condition</th><th>Rules</th><th>Final pass</th><th>First-turn pass</th>
         <th>Forgetting</th><th>Must</th><th>Must not</th><th title="Replies that could not be graded: empty, cut off, or an English-only rule on a Hindi reply">Dropped</th><th>Hindi replies</th><th>Cut off</th></tr>
         ${Object.entries(conds).map(([c, s]) => `<tr><td><b>${c}</b></td><td>${s.rules}</td>
@@ -298,7 +303,6 @@ async function results() {
           const [m, cond] = c.split("|");
           return `<td class="cell" title="${esc(trail)}" data-conv="${esc(convOf(id))}" data-cond="${esc(cond)}" data-model="${esc(m)}">${last.passed == null ? "?" : last.passed ? '<span class="chip ok">✓</span>' : '<span class="chip bad">✗</span>'}</td>`;
         }).join("")}</tr>`).join("")}</table></div>`;
-  $("#group").onchange = (e) => { sessionStorage.setItem("group", e.target.value); results(); };
   document.querySelectorAll("td.cell[data-conv]").forEach((td) => td.onclick = () =>
     show("transcripts", { conv: td.dataset.conv, condition: td.dataset.cond, model: td.dataset.model }));
 }

@@ -30,6 +30,26 @@ class ChecksTests(unittest.TestCase):
         self.assertTrue(checks.run_check({"type": "ends_with", "phrase": "the end."}, 'Story. "The end."'))
 
 
+GOOD_CODE = """```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def calculate_final(number, method: str = "recursive"):
+    '''Return the factorial of number.'''
+    if isinstance(number, float):
+        number = int(number)
+    if number < 0:
+        raise ValueError("negative")
+    if method == "iterative":
+        result = 1
+        for i in range(2, number + 1):
+            result *= i
+        return result
+    return 1 if number <= 1 else number * calculate_final(number - 1)
+```"""
+BAD_CODE = "```python\ndef calculate_final(number):\n    return number\n```"
+
+
 class CodeFirstRuleTests(unittest.TestCase):
     """Rules that code can decide must not go to the judge; each converted rule is proven on a pass and a fail."""
     @classmethod
@@ -51,14 +71,31 @@ class CodeFirstRuleTests(unittest.TestCase):
             ("LIS-S03-R3", "Use jump rope, plyometric drills and dynamic stretching.", "Just run daily."),
             ("LIS-S07-R1", "Dear Mr. Rao,\n\n" + "word " * 20 + "\n\n" + "word " * 20 + "\n\nSincerely,\nAsha", "\n\n".join(["word " * 20] * 5)),
             ("LIS-S07-R3", "Dear Mr. Rao,\nThank you.", "March 5, 2025\nDear Mr. Rao,"),
-            ("LIS-S08-R5", "**Historical Significance and Authenticity**\ntext", "Historical Significance\ntext"),
+            ("LIS-S08-R5", "**Historical Significance**\ntext\n\n**Authenticity**\ntext", "Historical Significance\ntext\n\nAuthenticity\ntext"),
+            ("LIS-S08-R5", "**मेज़ की ऐतिहासिक महत्व**\nपाठ\n\n**मेज़ की विशेषताएं**\nपाठ", "कोई शीर्षक नहीं"),
+            ("LIS-S01-R5", "Achievements: Minor's Gold Cup", "Achievements: none"),
+            ("LIS-S01-R5", "उपलब्धियाँ: मायनर्स गोल्ड कप", "उपलब्धियाँ: कोई नहीं"),
+            ("LIS-S10-R2", "a non-profit for LGBTQ youth", "a non-profit for youth"),
+            ("LIS-S10-R2", "यह संस्था एलजीबीटीक्यू युवाओं की मदद करती है", "यह संस्था युवाओं की मदद करती है"),
+            ("LIS-S04-R1", "जंगल में शांति से रहें।", "यह एक हीलिंग रिट्रीट है।"),
+            ("LIS-S10-R1", "एक कहानी जो सीधे शुरू होती है।", "एक बार की बात है, एक राजा था।"),
+            ("LIS-S15-R4", "रीसाइक्लिंग ज़रूरी है। रीसाइक्लिंग से बचत होती है। रीसाइक्लिंग करें।", "कचरा कम करें।"),
+            ("LIS-S04-R1", "Rest and breathe in the forest.", "A healing retreat."),
+            ("LIS-S04-R1", "Rest and breathe in the forest.", "Practice mindfulness daily."),
+            ("LIS-S13-R3", "**Excellent Grades**\n1. Band: 100", "**High Grades (100-90)**\n1. Band: 100"),
+            ("LIS-S09-R2", "Of course!\n\n---\n\nOne para of words.\n\nTwo para of words.\n\nThree para of words.\n\n---\n\n✅ Why this works:\n- a\n- b",
+                           "One.\n\nTwo.\n\nThree.\n\nFour.\n\nFive."),
+            ("LIS-S14-R2", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R3", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R4", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R5", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R6", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R7", GOOD_CODE, BAD_CODE),
+            ("LIS-S14-R8", GOOD_CODE, BAD_CODE),
             ("LIS-S11-R3", "\n".join(f"{i}. Song {i}" for i in range(1, 13)), "\n".join(f"{i}. Song {i}" for i in range(1, 9))),
-            ("LIS-S12-R3", "Quiet Autumn Light Falls Down\n\nline one\nline two\n\nline three\nline four\n\nline five\nline six",
-                           "line one\nline two\n\nline three\nline four"),
             ("LIS-S13-R1", "Grades\n1. Band: 100\n2. Reading: 91", "Grades are Band 100 then Reading 91."),
             ("LIS-S13-R3", "## Top scores\n1. Band: 100", "## 100-90\n1. Band: 100"),
             ("LIS-S13-R4", "ELA 81, FACS 90, Math 83, PE 86, Reading 85, Science 94, Social Studies 91, Elementary Band 50", "ELA 81"),
-            ("LIS-S14-R4", 'def calculate_final(number, method: str = "recursive"):', "def calculate_final(number):"),
         ]
         for rule_id, good, bad in cases:
             self.assertTrue(self.check(rule_id, good), f"{rule_id} should pass: {good[:40]!r}")
@@ -67,7 +104,7 @@ class CodeFirstRuleTests(unittest.TestCase):
     def test_judge_is_reserved_for_meaning_rules(self):
         judged = sorted(r for r, v in self.rules.items() if v["check"]["type"] == "judge")
         # these are the ones that genuinely need understanding of the conversation or of meaning
-        self.assertEqual(len(judged), 30)
+        self.assertEqual(len(judged), 37)
         for rid in judged:
             self.assertTrue(self.rules[rid]["check"].get("question"), rid)
 
@@ -84,57 +121,13 @@ class HindiCheckTests(unittest.TestCase):
         self.assertFalse(checks.run_check({"type": "reply_language", "expect": "en"}, "यह हिंदी है"))
 
 
-class CuratedDataTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        data = json.load(open(Path(__file__).parent.parent / "data" / "extra_conversations.json", encoding="utf-8"))
-        cls.convs = data["conversations"]
-        cls.rules = {r["conv_id"]: r for r in Rulebook(tempfile.mktemp()).rules}
-
-    def test_twenty_conversations_in_ten_matched_pairs(self):
-        self.assertEqual(len(self.convs), 20)
-        pairs = {}
-        for c in self.convs:
-            pairs.setdefault(c["pair_id"], []).append(c)
-        self.assertEqual(len(pairs), 10)
-        for pid, (a, b) in pairs.items():
-            self.assertEqual({a["polarity"], b["polarity"]}, {"must", "must_not"}, pid)
-            for ta, tb in list(zip(a["turns"], b["turns"]))[1:]:      # turns 2-5 identical
-                self.assertEqual((ta["en"], ta["hi"]), (tb["en"], tb["hi"]), pid)
-            self.assertNotEqual(a["turns"][0]["en"], b["turns"][0]["en"])  # only the rule differs
-
-    def test_shape_and_en_hi_en_pattern(self):
-        for c in self.convs:
-            self.assertEqual([t["n"] for t in c["turns"]], [1, 2, 3, 4, 5])
-            self.assertEqual(c["mix_hindi_turns"], [2, 3, 4])             # English at both ends
-            self.assertEqual([t["distractor"] for t in c["turns"]], [False, False, True, False, False])
-            self.assertTrue(all(t["hi"] and any("\u0900" <= ch <= "\u097f" for ch in t["hi"]) for t in c["turns"]))
-
-    def test_scoring_targets_survive_translation(self):
-        import re
-        literal = ["✅", "(!)", "**", "'# '", "'- '", "Let me know if you need anything else."]
-        for c in self.convs:
-            en, hi = c["turns"][0]["en"], c["turns"][0]["hi"]
-            for token in literal:
-                if token in en:
-                    self.assertIn(token, hi, f"{c['id']} lost {token!r} in Hindi")
-            for t in c["turns"]:
-                self.assertEqual(sorted(re.findall(r"\d+", t["en"])), sorted(re.findall(r"\d+", t["hi"])), c["id"])
-
-    def test_each_has_one_rule_starting_at_turn_1(self):
-        for c in self.convs:
-            r = self.rules[c["id"]]
-            self.assertEqual((r["from_turn"], r["polarity"]), (1, c["polarity"]))
-            self.assertEqual(r["language_scope"], "any")
-
-
 class DatasetTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.convs, cls.warnings = ingest.ingest(DATASET)
 
     def test_ingest_shape(self):
-        self.assertEqual(len(self.convs), 40)            # 20 from the spreadsheet + 20 curated
+        self.assertEqual(len(self.convs), 20)            # the 20 conversations from the spreadsheet
         self.assertEqual(sum(c.id.startswith("LIS-S") for c in self.convs), 20)
         self.assertEqual(self.warnings, [])
 
@@ -146,11 +139,6 @@ class DatasetTests(unittest.TestCase):
         for cid in ("LIS-S19", "LIS-S20"):                 # the final "follow all requirements" turn is graded
             conv = next(c for c in self.convs if c.id == cid)
             self.assertEqual([t.distractor for t in conv.english], [True, False, True, False])
-
-    def test_replicate_condition_is_identical_to_en(self):
-        conv = self.convs[0]
-        self.assertEqual([x.text for x in remixer.CONDITIONS["EN_REP"][1](conv, set())],
-                         [x.text for x in remixer.all_english(conv, set())])
 
     def test_reviewed_translation_fix_is_applied(self):
         s13 = next(c for c in self.convs if c.id == "LIS-S13")
@@ -170,8 +158,11 @@ class DatasetTests(unittest.TestCase):
         for conv in self.convs:
             for name, (_, fn) in remixer.CONDITIONS.items():
                 turns = fn(conv, {1})
-                if name in ("HI_ALL", "HI_EN_HI"):           # controls: only curated conversations
+                if name in ("HI_ALL", "HI_EN_HI", "HI_HEAVY"):     # need a full Hindi version
                     self.assertEqual(turns is not None, bool(conv.hindi), conv.id)
+                    if name == "HI_HEAVY" and turns:
+                        self.assertEqual(len(turns), len(conv.english))
+                        self.assertEqual(turns[-1].lang, "English", conv.id)
                     continue
                 self.assertEqual(len(turns), len(conv.english), name)
                 self.assertEqual(turns[-1].lang, "English")
@@ -189,6 +180,42 @@ class DatasetTests(unittest.TestCase):
                     self.assertEqual(c.lang, "English", f"{conv.id} turn {c.n}")
                 else:
                     self.assertEqual(c.text, m.text)      # unchanged elsewhere
+
+    def test_every_original_conversation_has_a_full_hindi_version(self):
+        for conv in self.convs:
+            if conv.id.startswith("LIS-S"):
+                self.assertEqual([t.n for t in conv.hindi], [t.n for t in conv.english], conv.id)
+                self.assertTrue(all(t.lang == "Hindi" and t.text.strip() for t in conv.hindi), conv.id)
+                self.assertEqual([t.distractor for t in conv.hindi], [t.distractor for t in conv.english], conv.id)
+
+    def test_authored_hindi_is_never_replaced_by_a_translation(self):
+        for conv in self.convs:
+            authored = {t.n: t.text for t in conv.mix if t.lang == "Hindi"}
+            for t in conv.hindi:
+                if t.n in authored:
+                    self.assertEqual(t.text, authored[t.n], f"{conv.id} turn {t.n}")
+                    self.assertNotIn(t.n, conv.translated)
+
+    def test_hi_heavy_keeps_rules_and_last_turn_english_and_everything_else_hindi(self):
+        by_conv = {}
+        for r in Rulebook(tempfile.mktemp()).rules:
+            by_conv.setdefault(r["conv_id"], set()).add(r["from_turn"])
+        for conv in self.convs:
+            intro = by_conv.get(conv.id, set())
+            turns = remixer.hindi_heavy(conv, intro)
+            self.assertEqual(len(turns), len(conv.english))
+            last = len(conv.english) - 1
+            for i, (t, en, hi) in enumerate(zip(turns, conv.english, conv.hindi)):
+                self.assertEqual(t.text, en.text if (en.n in intro or i == last) else hi.text, f"{conv.id} turn {en.n}")
+
+    def test_hi_heavy_has_more_hindi_than_mix_clean(self):
+        convs = [c for c in self.convs if c.id.startswith("LIS-S")]
+        intro = {}
+        for r in Rulebook(tempfile.mktemp()).rules:
+            intro.setdefault(r["conv_id"], set()).add(r["from_turn"])
+        heavy = sum(t.lang == "Hindi" for c in convs for t in remixer.hindi_heavy(c, intro.get(c.id, set())))
+        clean = sum(t.lang == "Hindi" for c in convs for t in remixer.mix_clean(c, intro.get(c.id, set())))
+        self.assertGreater(heavy, clean)
 
     def test_seed_rules_point_at_real_turns(self):
         by_id = {c.id: len(c.english) for c in self.convs}
@@ -254,7 +281,7 @@ class PipelineTests(unittest.TestCase):
                 return {"model": "broken"}
         progress = run(self.ws, Broken(), conditions=["EN"])
         self.assertEqual(progress.state, "finished")
-        self.assertEqual(progress.snapshot()["error_count"], 40)
+        self.assertEqual(progress.snapshot()["error_count"], 20)
         self.assertEqual(read_jsonl(self.ws.responses), [])
 
 
@@ -275,29 +302,29 @@ class CutOffTests(unittest.TestCase):
             return {"model": "reasoner", "max_tokens": 1024 if not self.ok else 4096, "extra_body": self.extra}
 
     def test_cut_off_runs_are_redone_and_old_record_is_ignored(self):
-        p1 = run(self.ws, self.Budget(ok=False), conv_ids=["LIS-X01"], conditions=["EN"])
+        p1 = run(self.ws, self.Budget(ok=False), conv_ids=["LIS-S15"], conditions=["EN"])
         self.assertIn("cut off", p1.message)
-        run(self.ws, self.Budget(ok=False), conv_ids=["LIS-X01"], conditions=["EN"])   # still cut off: redone again
+        run(self.ws, self.Budget(ok=False), conv_ids=["LIS-S15"], conditions=["EN"])   # still cut off: redone again
         self.assertEqual(len(read_jsonl(self.ws.responses)), 2)
-        run(self.ws, self.Budget(ok=True), conv_ids=["LIS-X01"], conditions=["EN"])    # fixed: redone once more
+        run(self.ws, self.Budget(ok=True), conv_ids=["LIS-S15"], conditions=["EN"])    # fixed: redone once more
         self.assertEqual(len(read_jsonl(self.ws.responses)), 3)
         from mcd.workspace import latest_responses
         latest = latest_responses(self.ws.responses)
         self.assertEqual(len(latest), 1)
         self.assertFalse(any(latest[0]["truncated"]))
-        run(self.ws, self.Budget(ok=True), conv_ids=["LIS-X01"], conditions=["EN"])    # complete: skipped
+        run(self.ws, self.Budget(ok=True), conv_ids=["LIS-S15"], conditions=["EN"])    # complete: skipped
         self.assertEqual(len(read_jsonl(self.ws.responses)), 3)
 
     def test_empty_or_cut_off_reply_is_dropped_not_failed(self):
-        run(self.ws, self.Budget(ok=False), conv_ids=["LIS-X01"], conditions=["EN"])
+        run(self.ws, self.Budget(ok=False), conv_ids=["LIS-S15"], conditions=["EN"])
         grade(self.ws, MockChat())
         last = [g for g in read_jsonl(self.ws.grades) if g["turn"] == 5]
         self.assertTrue(last and all(g["passed"] is None and g["skip_reason"] for g in last))
 
     def test_changing_request_fields_triggers_a_rerun(self):
-        run(self.ws, self.Budget(ok=True, extra={}), conv_ids=["LIS-X01"], conditions=["EN"])
+        run(self.ws, self.Budget(ok=True, extra={}), conv_ids=["LIS-S15"], conditions=["EN"])
         run(self.ws, self.Budget(ok=True, extra={"chat_template_kwargs": {"enable_thinking": False}}),
-            conv_ids=["LIS-X01"], conditions=["EN"])
+            conv_ids=["LIS-S15"], conditions=["EN"])
         self.assertEqual(len(read_jsonl(self.ws.responses)), 2)
 
     def test_extra_body_is_sent_in_the_request(self):
@@ -399,9 +426,9 @@ class StatusTests(unittest.TestCase):
     def test_status_counts_saved_vs_expected_and_cut_offs(self):
         ws = Workspace(tempfile.mkdtemp()); service.do_ingest(ws, str(DATASET))
         self.assertEqual(service.status(ws), [])
-        run(ws, MockChat(), conv_ids=["LIS-X01", "LIS-X02"], conditions=["EN"])
+        run(ws, MockChat(), conv_ids=["LIS-S15", "LIS-S16"], conditions=["EN"])
         rows = service.status(ws)
-        self.assertEqual([(r["condition"], r["saved"], r["expected"], r["cut_off"]) for r in rows], [("EN", 2, 40, 0)])
+        self.assertEqual([(r["condition"], r["saved"], r["expected"], r["cut_off"]) for r in rows], [("EN", 2, 20, 0)])
 
     def test_cli_prints_live_progress_without_breaking_output(self):
         import contextlib, io
@@ -409,9 +436,9 @@ class StatusTests(unittest.TestCase):
         ws_dir = tempfile.mkdtemp(); out, err = io.StringIO(), io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             cli.main(["--workspace", ws_dir, "ingest", str(DATASET)])
-            cli.main(["--workspace", ws_dir, "run", "--model", "mock", "--conv-ids", "LIS-X01", "--conditions", "EN"])
+            cli.main(["--workspace", ws_dir, "run", "--model", "mock", "--conv-ids", "LIS-S15", "--conditions", "EN"])
             cli.main(["--workspace", ws_dir, "status"])
-        self.assertIn("1/40", out.getvalue())
+        self.assertIn("1/20", out.getvalue())
 
 
 class ManualJudgeTests(unittest.TestCase):
@@ -477,13 +504,13 @@ class ResilienceTests(unittest.TestCase):
             def settings(self):
                 return {"model": "flaky", "extra_body": {}}
         backend = Flaky()
-        p1 = run(ws, backend, conv_ids=["LIS-X01"], conditions=["EN"], workers=1)
+        p1 = run(ws, backend, conv_ids=["LIS-S15"], conditions=["EN"], workers=1)
         self.assertEqual((p1.failed, p1.snapshot()["failed"]), (1, 1))
         self.assertIn("FAILED", p1.message)
         self.assertEqual(read_jsonl(ws.responses), [])                    # nothing half-saved as a result
         before = len(calls)
         backend.fail_on_call = 10 ** 9                                    # now it works
-        p2 = run(ws, backend, conv_ids=["LIS-X01"], conditions=["EN"], workers=1)
+        p2 = run(ws, backend, conv_ids=["LIS-S15"], conditions=["EN"], workers=1)
         self.assertEqual(p2.failed, 0)
         self.assertEqual(len(calls) - before, 3)                          # 2 turns were kept; only turns 3-5 were redone
         self.assertEqual(len(read_jsonl(ws.responses)), 1)
@@ -541,7 +568,7 @@ class ParallelTests(unittest.TestCase):
             def settings(self):
                 return {"model": "slow"}
         ws = Workspace(tempfile.mkdtemp()); service.do_ingest(ws, str(DATASET))
-        t0 = time.time(); run(ws, Slow(), conv_ids=[f"LIS-X{i:02d}" for i in range(1, 9)], conditions=["EN"], workers=8)
+        t0 = time.time(); run(ws, Slow(), conv_ids=["LIS-S11", "LIS-S12", "LIS-S13", "LIS-S15", "LIS-S16", "LIS-S17", "LIS-S18", "LIS-S19"], conditions=["EN"], workers=8)
         concurrent = time.time() - t0                       # 8 conversations x 5 turns x 0.05s = 2.0s if sequential
         self.assertLess(concurrent, 1.0)
 
@@ -554,14 +581,100 @@ class ParallelTests(unittest.TestCase):
         self.assertTrue(analysis.switch_cost(analysis.first_and_last(few), "m")["too_few"])
         self.assertFalse(analysis.switch_cost(analysis.first_and_last(many), "m")["too_few"])
 
+    def test_memory_gap_filter_drops_rules_stated_and_tested_in_the_same_turn(self):
+        def row(cond, conv, rule, turn, passed):
+            return {"model": "m", "condition": cond, "conv_id": conv, "rule_id": rule, "turn": turn,
+                    "passed": passed, "polarity": "must", "truncated": False, "rule_hash": "x"}
+        grades = []
+        for i in range(12):
+            conv = f"c{i}"
+            # rule "gap": stated at turn 1, tested at turn 5; EN keeps it, MIX breaks it
+            grades += [row("EN", conv, "gap", 1, True), row("EN", conv, "gap", 5, True),
+                       row("MIX", conv, "gap", 1, True), row("MIX", conv, "gap", 5, False)]
+            # rule "same": stated and tested in turn 3 only; identical in both conditions
+            grades += [row("EN", conv, "same", 3, True), row("MIX", conv, "same", 3, True)]
+        final = analysis.first_and_last(grades)
+        all_rules = analysis.switch_cost(final, "m", "EN", "MIX", min_gap=0)
+        gap_only = analysis.switch_cost(final, "m", "EN", "MIX", min_gap=1)
+        self.assertEqual(all_rules["pairs"], 24)
+        self.assertEqual(gap_only["pairs"], 12)
+        self.assertAlmostEqual(gap_only["diff"], 1.0)           # every gap rule was broken in MIX
+        self.assertAlmostEqual(all_rules["diff"], 0.5)          # diluted by the same-turn rules
+        self.assertLess(gap_only["p"], 0.01)
+        summary = analysis.summarize(grades)["m"]
+        self.assertEqual(summary["switch_costs"]["MIX"]["pairs"], 12)       # primary = memory-gap rules
+        self.assertEqual(summary["switch_costs_all"]["MIX"]["pairs"], 24)   # secondary = all rules
+
+    def test_hindi_exposure_counts_hindi_turns_between_statement_and_test(self):
+        variants = {("c", "MIX"): [{"n": i, "lang": l} for i, l in enumerate(["English", "Hindi", "Hindi", "English", "Hindi", "English"], 1)],
+                    ("c", "EN"): [{"n": i, "lang": "English"} for i in range(1, 7)]}
+        rules = [{"id": "r_early", "from_turn": 6, "stated_turn": 1}, {"id": "r_late", "from_turn": 6, "stated_turn": 5},
+                 {"id": "r_nostate", "from_turn": 1}]
+        grades = [{"conv_id": "c", "condition": cond, "rule_id": rid, "turn": 6}
+                  for cond in ("MIX", "EN") for rid in ("r_early", "r_late", "r_nostate")]
+        ex = analysis.hindi_exposure(grades, rules, variants)
+        self.assertEqual(ex[("c", "MIX", "r_early")], 3)       # turns 2, 3, 5 are Hindi, between turn 1 and turn 6
+        self.assertEqual(ex[("c", "MIX", "r_late")], 0)        # stated at 5, tested at 6: nothing in between
+        self.assertEqual(ex[("c", "EN", "r_early")], 0)
+
+    def test_exposure_filter_keeps_only_rules_with_hindi_between_statement_and_test(self):
+        def row(cond, conv, rule, turn, passed):
+            return {"model": "m", "condition": cond, "conv_id": conv, "rule_id": rule, "turn": turn,
+                    "passed": passed, "polarity": "must", "truncated": False, "rule_hash": "x"}
+        grades = []
+        for i in range(12):
+            c = f"c{i}"
+            grades += [row("EN", c, "exposed", 9, True), row("MIX", c, "exposed", 9, False),   # broken after Hindi
+                       row("EN", c, "plain", 9, True), row("MIX", c, "plain", 9, True)]         # no Hindi in between
+        exposure = {(f"c{i}", "MIX", "exposed"): 2 for i in range(12)} | {(f"c{i}", "MIX", "plain"): 0 for i in range(12)}
+        final = analysis.first_and_last(grades)
+        kept = analysis.switch_cost(final, "m", "EN", "MIX", exposure=exposure, min_exposure=1)
+        self.assertEqual(kept["pairs"], 12)
+        self.assertAlmostEqual(kept["diff"], 1.0)
+        self.assertEqual(analysis.switch_cost(final, "m", "EN", "MIX")["pairs"], 24)
+        self.assertEqual(analysis.summarize(grades, exposure)["m"]["switch_costs"]["MIX"]["pairs"], 12)
+
+    def test_forgetting_at_an_in_between_turn_counts(self):
+        def row(cond, conv, turn, passed):
+            return {"model": "m", "condition": cond, "conv_id": conv, "rule_id": "r", "turn": turn,
+                    "passed": passed, "polarity": "must", "truncated": False, "rule_hash": "x"}
+        grades = []
+        for i in range(12):
+            c = f"c{i}"
+            # English keeps the rule at turns 2, 4, 6. In the mix it is broken at turn 4 but followed again at the last turn 6.
+            grades += [row("EN", c, 2, True), row("EN", c, 4, True), row("EN", c, 6, True),
+                       row("MIX", c, 2, True), row("MIX", c, 4, False), row("MIX", c, 6, True)]
+        exposure = {(f"c{i}", "MIX", "r", t): 1 for i in range(12) for t in (2, 4, 6)}
+        final_only = analysis.switch_cost(analysis.first_and_last(grades), "m", "EN", "MIX")
+        self.assertAlmostEqual(final_only["diff"], 0.0)          # the old last-turn view sees nothing
+        t = analysis.turn_level_cost(grades, exposure, "m", "EN", "MIX")
+        self.assertAlmostEqual(t["diff"], 1 / 3)                 # the in-between lapse is counted
+        self.assertEqual(analysis.lapse_rate(grades, "m", "MIX")["rate"], 1.0)
+        self.assertEqual(analysis.lapse_rate(grades, "m", "EN")["rate"], 0.0)
+
+    def test_p_value_is_large_when_conditions_match(self):
+        def row(cond, conv, passed):
+            return {"model": "m", "condition": cond, "conv_id": conv, "rule_id": "r", "turn": 5,
+                    "passed": passed, "polarity": "must", "truncated": False, "rule_hash": "x"}
+        grades = [row(c, f"c{i}", i % 2 == 0) for i in range(12) for c in ("EN", "MIX")]
+        self.assertGreater(analysis.switch_cost(analysis.first_and_last(grades), "m")["p"], 0.9)
+
+    def test_leakage_counts_reply_language_against_question_language(self):
+        variants = {("c", "MIX"): [{"lang": "English"}, {"lang": "Hindi"}, {"lang": "English"}]}
+        responses = [{"conv_id": "c", "condition": "MIX", "model": "m",
+                      "replies": ["Here is the answer", "यह एक उत्तर है", "यह भी हिंदी में है"]}]
+        cell = analysis.leakage(variants, responses)["m"]["MIX"]
+        self.assertEqual((cell["en_turns"], cell["en_turns_hindi_reply"]), (2, 1))
+        self.assertEqual((cell["hi_turns"], cell["hi_turns_english_reply"]), (1, 0))
+
     def test_headroom_uses_only_english_and_flags_ceiling(self):
         def row(cond, conv, passed):
             return {"model": "m", "condition": cond, "conv_id": conv, "rule_id": conv + "r", "turn": 5,
                     "passed": passed, "polarity": "must", "truncated": False, "rule_hash": "x"}
-        grades = [row("EN", f"LIS-X0{i}", True) for i in range(1, 6)] + [row("MIX", "LIS-X01", False)]
+        grades = [row("EN", f"LIS-S0{i}", True) for i in range(1, 6)] + [row("MIX", "LIS-S15", False)]
         h = analysis.headroom(grades)
-        self.assertEqual(h["m"]["X"]["status"], "ceiling")          # MIX failure is ignored
-        self.assertEqual(h["m"]["X"]["pass"], 1.0)
+        self.assertEqual(h["m"]["S"]["status"], "ceiling")          # MIX failure is ignored
+        self.assertEqual(h["m"]["S"]["pass"], 1.0)
 
 
 class LanguageScopeTests(unittest.TestCase):
@@ -587,7 +700,7 @@ class LanguageScopeTests(unittest.TestCase):
         s = analysis.switch_cost(final, "hi-mix", "EN", "MIX")
         # the S20 'no c' pair is dropped; other S20 rules (any-scope) still pair up
         self.assertEqual(s["dropped_pairs"], 1)
-        self.assertEqual(s["pairs"], 2)
+        self.assertEqual(s["pairs"], 3)
 
     def test_sensitivity_bounds_bracket_the_dropped_pairs(self):
         final = {}

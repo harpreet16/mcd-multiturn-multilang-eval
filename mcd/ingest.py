@@ -23,7 +23,7 @@ DISTRACTOR_SOURCE = "Added for this experiment"
 # Only the unrelated side-questions are distractors, so they are recognised by their wording.
 DISTRACTOR_PREFIXES = ("Quick side question", "A small unrelated question", "One more quick detour")
 FIXES_PATH = Path(__file__).resolve().parent.parent / "data" / "translation_fixes.json"
-EXTRA_PATH = Path(__file__).resolve().parent.parent / "data" / "extra_conversations.json"
+TRANSLATIONS_PATH = Path(__file__).resolve().parent.parent / "data" / "hindi_translations.json"
 REQUIRED = ["Conversation ID", "Version", "Turn", "Language", "Turn text", "Source"]
 
 
@@ -53,25 +53,33 @@ def _apply_fixes(versions, fixes):
     return warnings
 
 
-def load_extra(path=EXTRA_PATH):
-    """Curated conversations written for this study (English + a full Hindi version).
-
-    The authored mix is English at the first and last turn and Hindi in between,
-    so the rule (given in turn 1) must survive an English -> Hindi -> English switch.
-    """
+def load_translations(path=TRANSLATIONS_PATH):
+    """{conversation id: {turn number: Hindi text}} for turns the dataset has no human-written Hindi for."""
     if not os.path.exists(path):
-        return []
-    out = []
-    for c in json.load(open(path, encoding="utf-8"))["conversations"]:
-        en = [Turn(t["n"], "English", t["en"], t["distractor"]) for t in c["turns"]]
-        hi = [Turn(t["n"], "Hindi", t["hi"], t["distractor"]) for t in c["turns"]]
-        hindi_at = set(c["mix_hindi_turns"])
-        mix = [hi[i] if t.n in hindi_at else en[i] for i, t in enumerate(en)]
-        out.append(Conversation(c["id"], en, mix, hi))
-    return out
+        return {}
+    return {cid: {int(n): t for n, t in turns.items()}
+            for cid, turns in json.load(open(path, encoding="utf-8"))["translations"].items()}
 
 
-def ingest(xlsx_path, fixes_path=FIXES_PATH, extra_path=EXTRA_PATH):
+def _full_hindi(conv_id, english, mix, translations):
+    """One Hindi turn per English turn: the human-written one if the mix has it, else the translation.
+
+    Returns (hindi turns, translated turn numbers); ([], []) if any turn has neither.
+    """
+    authored = {t.n: t for t in mix if t.lang == "Hindi"}
+    hindi, translated = [], []
+    for en in english:
+        if en.n in authored:
+            hindi.append(authored[en.n])
+        elif en.n in translations.get(conv_id, {}):
+            hindi.append(Turn(en.n, "Hindi", translations[conv_id][en.n], en.distractor))
+            translated.append(en.n)
+        else:
+            return [], []
+    return hindi, translated
+
+
+def ingest(xlsx_path, fixes_path=FIXES_PATH, translations_path=TRANSLATIONS_PATH):
     rows = read_sheet(xlsx_path)
     col = _header_index(rows[0])
 
@@ -85,6 +93,7 @@ def ingest(xlsx_path, fixes_path=FIXES_PATH, extra_path=EXTRA_PATH):
         versions[r[col["Conversation ID"]]][r[col["Version"]]].append(turn)
 
     fixes = load_fixes(fixes_path)
+    translations = load_translations(translations_path)
     conversations, warnings = [], _apply_fixes(versions, fixes)
     for conv_id, by_version in versions.items():
         missing = {VERSION_EN, VERSION_MIX} - set(by_version)
@@ -96,11 +105,9 @@ def ingest(xlsx_path, fixes_path=FIXES_PATH, extra_path=EXTRA_PATH):
         if [t.n for t in english] == [t.n for t in mix]:
             for en, mx in zip(english, mix):          # decide from the English text, apply to both versions
                 en.distractor = mx.distractor = en.distractor and en.text.startswith(DISTRACTOR_PREFIXES)
-        conversations.append(Conversation(conv_id, english, mix))
+        hindi, translated = _full_hindi(conv_id, english, mix, translations)
+        conversations.append(Conversation(conv_id, english, mix, hindi, translated))
         warnings += _lint(conv_id, english, mix)
-    for conv in load_extra(extra_path):
-        conversations.append(conv)
-        warnings += _lint(conv.id, conv.english, conv.mix)
     return conversations, warnings
 
 
