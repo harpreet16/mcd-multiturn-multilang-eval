@@ -12,8 +12,9 @@ SRC="/scratch/$USER/mcd_runs/main"            # the workspace that already holds
 WORKSPACE="/scratch/$USER/mcd_runs/full_hindi" # separate copy: the old workspace is never modified
 LOGDIR="/scratch/$USER/mcd_runs"
 CONVS=$(printf "LIS-S%02d " $(seq 1 20))
-CONDS="HI_HEAVY HI_ALL"
-MODELS="Qwen/Qwen3-4B-Instruct-2507 meta-llama/Llama-3.2-3B-Instruct"
+CONDS="${CONDS:-HI_HEAVY HI_ALL}"                   # override for a new model: "EN MIX_CLEAN HI_HEAVY HI_ALL"
+MODELS="${MODELS:-Qwen/Qwen3-4B-Instruct-2507 meta-llama/Llama-3.2-3B-Instruct}"   # override to re-run one model
+MAXLEN="${MAXLEN:-32768}"                      # server context window; Hindi needs many tokens
 
 if [ -z "${HF_TOKEN:-}" ]; then echo "!! HF_TOKEN is not set (needed for Llama)"; exit 1; fi
 module load mamba/latest
@@ -37,7 +38,7 @@ fi
 
 for MODEL in $MODELS; do
   echo "=== $MODEL ==="
-  vllm serve "$MODEL" --dtype half --max-model-len 32768 --gpu-memory-utilization 0.90 \
+  vllm serve "$MODEL" --dtype half --max-model-len "$MAXLEN" --gpu-memory-utilization 0.90 \
         --port 8000 > "$LOGDIR/vllm_$(basename $MODEL).log" 2>&1 &
   PID=$!
   READY=0
